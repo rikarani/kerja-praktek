@@ -18,7 +18,7 @@
 
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <!-- Sidebar Menu -->
-        <nav x-data="{ selected: $persist('Dashboard') }">
+        <nav>
             <!-- Menu Group -->
             <div>
                 <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
@@ -54,7 +54,7 @@
 
                     <!-- Menu Item Calendar -->
                     <li>
-                        <a href="{{ route('kegiatan') }}"
+                        <a href="{{ route('kegiatan.index') }}"
                             class="menu-item group {{ Route::is('kegiatan') ? 'menu-item-active' : 'menu-item-inactive' }}">
                             <svg class="{{ Route::is('kegiatan') ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
