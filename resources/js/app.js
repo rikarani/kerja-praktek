@@ -1,12 +1,11 @@
 // import "jsvectormap/dist/jsvectormap.min.css";
 import "flatpickr/dist/flatpickr.min.css";
-// import "dropzone/dist/dropzone.css";
+import "dropzone/dist/dropzone.css";
 
 import flatpickr from "flatpickr";
-import { Indonesian } from "flatpickr/dist/l10n/id";
-// import Dropzone from "dropzone";
+import Dropzone from "dropzone";
 
-// import { Livewire } from "../../vendor/livewire/livewire/dist/livewire.esm";
+import { Indonesian } from "flatpickr/dist/l10n/id";
 
 import chart01 from "./components/charts/chart-01";
 // import chart02 from "./components/charts/chart-02";
@@ -14,8 +13,6 @@ import chart01 from "./components/charts/chart-01";
 // import map01 from "./components/map-01";
 // import "./components/calendar-init.js";
 // import "./components/image-resize";
-
-// Livewire.start();
 
 // // Init flatpickr
 flatpickr(".datepicker", {
@@ -42,11 +39,10 @@ flatpickr(".datepicker", {
 });
 
 // // Init Dropzone
-// const dropzoneArea = document.querySelectorAll("#demo-upload");
-
-// if (dropzoneArea.length) {
-//   let myDropzone = new Dropzone("#demo-upload", { url: "/file/post" });
-// }
+// new Dropzone("#demo-upload", {
+//   autoProcessQueue: false,
+//   uploadMultiple: true,
+// });
 
 // // Document Loaded
 document.addEventListener("DOMContentLoaded", () => {
