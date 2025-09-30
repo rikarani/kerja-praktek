@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Activity;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -15,7 +14,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', fn () => view('admin.dashboard'))->name('dashboard');
 
         Route::prefix('kegiatan')->group(function () {
-            Route::get('/', fn () => view('admin.kegiatan.index', ['activities' => Activity::all()]))->name('kegiatan.index');
+            Route::get('/', fn () => view('admin.kegiatan.index'))->name('kegiatan.index');
             Route::get('/tambah', fn () => view('admin.kegiatan.create'))->name('kegiatan.create');
         });
     });
