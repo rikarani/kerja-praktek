@@ -3,13 +3,18 @@
 namespace App\Livewire\Auth;
 
 use Livewire\Component;
+use Livewire\Attributes\Validate;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class Login extends Component
 {
+    #[Validate(rule: 'required', message: 'wajib diisi')]
+    #[Validate(rule: 'email:dns', message: 'email tidak valid')]
     public string $email = '';
 
+    #[Validate(rule: 'required', message: 'wajib diisi')]
     public string $password = '';
 
     public function login()
@@ -17,23 +22,17 @@ class Login extends Component
         $data = $this->validate();
 
         if (! Auth::attempt($data)) {
-            return session()->flash('error', 'Email atau Password salah');
+            $this->reset('password');
+
+            return Session::flash('error', 'Email atau Password salah');
         }
 
         Session::regenerate();
 
-        return $this->redirectRoute('dashboard');
+        $this->redirectRoute('dashboard');
     }
 
-    protected function rules(): array
-    {
-        return [
-            'email' => 'required|email:dns',
-            'password' => 'required|min:6',
-        ];
-    }
-
-    public function render()
+    public function render(): View
     {
         return view('livewire.auth.login');
     }
