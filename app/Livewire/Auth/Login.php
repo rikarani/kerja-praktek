@@ -22,10 +22,13 @@ class Login extends Component
         $data = $this->validate();
 
         if (! Auth::attempt($data)) {
+            $this->reset('password');
+
             return Session::flash('error', 'Email atau Password salah');
         }
 
         Session::regenerate();
+
         $this->redirectRoute('dashboard');
     }
 
