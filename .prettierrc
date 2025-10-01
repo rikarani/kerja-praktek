@@ -1,14 +1,13 @@
 {
-    "plugins": [
-        "@shufo/prettier-plugin-blade"
-    ],
-    "overrides": [
-        {
-            "files": ["*.blade.php"],
-            "options": {
-                "parser": "blade",
-                "tabWidth": 4
-            }
-        }
-    ]
+  "$schema": "https://json.schemastore.org/prettierrc.json",
+  "tabWidth": 2,
+  "printWidth": 120,
+  "overrides": [
+    {
+      "files": ["bun.lock"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
 }
