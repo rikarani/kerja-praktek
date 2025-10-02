@@ -104,7 +104,7 @@
                         {{ Str::limit($activity->title, 25) }}
                       </p>
                       <span class="text-theme-xs text-gray-500 dark:text-gray-400">
-                        {{ \Carbon\Carbon::parse($activity->start_date)->format('d M Y') }}
+                        {{ $activity->start_date->translatedFormat('d F Y') }}
                       </span>
                     </div>
                   </div>
