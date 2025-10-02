@@ -44,7 +44,7 @@ class Index extends Component
     public function render(): View
     {
         return view('livewire.admin.activity.index')->with([
-            'activities' => Activity::paginate(4),
+            'activities' => Activity::latest()->paginate(4),
         ]);
     }
 }
