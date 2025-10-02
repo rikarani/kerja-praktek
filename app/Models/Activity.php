@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Activity extends Model
@@ -19,6 +21,12 @@ class Activity extends Model
                 'source' => 'title',
             ],
         ];
+    }
+
+    #[Scope]
+    protected function search(Builder $query, string $search)
+    {
+        $query->where('title', 'like', "%$search%");
     }
 
     protected function casts(): array
