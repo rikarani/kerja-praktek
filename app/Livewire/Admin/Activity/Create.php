@@ -36,7 +36,7 @@ class Create extends Component
         Activity::create([
             'title' => $data['title'],
             'type' => $data['type'],
-            'start_date' => Carbon::parse($data['start_date']),
+            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
             'description' => $data['description'],
             'published' => false,
         ]);
