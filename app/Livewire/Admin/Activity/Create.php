@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Admin\Kegiatan;
+namespace App\Livewire\Admin\Activity;
 
 use Livewire\Component;
 use App\Models\Activity;
@@ -41,7 +41,7 @@ class Create extends Component
             'published' => false,
         ]);
 
-        $this->redirectRoute('kegiatan.index');
+        $this->redirectRoute('activity.index');
     }
 
     public function saveAndPublish(): void
@@ -60,7 +60,7 @@ class Create extends Component
             'published' => true,
         ]);
 
-        $this->redirectRoute('kegiatan.index');
+        $this->redirectRoute('activity.index');
     }
 
     protected function rules(): array
@@ -99,6 +99,6 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.kegiatan.create');
+        return view('livewire.admin.activity.create');
     }
 }
