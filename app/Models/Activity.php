@@ -24,9 +24,15 @@ class Activity extends Model
     }
 
     #[Scope]
-    protected function search(Builder $query, string $search)
+    protected function search(Builder $query, string $search): void
     {
         $query->where('title', 'like', "%$search%");
+    }
+
+    #[Scope]
+    protected function published(Builder $query, bool $published = true): void
+    {
+        $query->where('published', $published);
     }
 
     protected function casts(): array
