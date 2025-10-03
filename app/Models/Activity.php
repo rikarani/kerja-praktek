@@ -23,6 +23,11 @@ class Activity extends Model
         ];
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     #[Scope]
     protected function search(Builder $query, string $search): void
     {
@@ -30,7 +35,7 @@ class Activity extends Model
     }
 
     #[Scope]
-    protected function published(Builder $query, bool $published = true): void
+    protected function published(Builder $query, ?bool $published = true): void
     {
         $query->where('published', $published);
     }
