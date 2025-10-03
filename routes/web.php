@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\IndexController;
 
-Route::view('/', 'index');
+Route::get('/', [IndexController::class, 'index']);
+Route::get('/kegiatan/{activity}', [IndexController::class, 'detail'])->name('activity.detail');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
