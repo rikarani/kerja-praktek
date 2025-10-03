@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Livewire\Admin\Kegiatan;
+namespace App\Livewire\Admin\Activity;
 
 use Livewire\Component;
 use App\Models\Activity;
+use Livewire\WithPagination;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
-    public function render(): View
-    {
-        return view('livewire.admin.kegiatan.index')->with([
-            'activities' => Activity::all(),
-        ]);
-    }
+    use WithPagination;
 
     public function publish(Activity $activity): void
     {
@@ -22,7 +18,7 @@ class Index extends Component
             'published' => true,
         ]);
 
-        $this->redirectRoute('kegiatan.index');
+        $this->redirectRoute('activity.index');
     }
 
     public function unpublish(Activity $activity): void
@@ -31,7 +27,7 @@ class Index extends Component
             'published' => false,
         ]);
 
-        $this->redirectRoute('kegiatan.index');
+        $this->redirectRoute('activity.index');
     }
 
     public function hapus(Activity $activity): void
@@ -42,6 +38,13 @@ class Index extends Component
         // delete from db
         $activity->delete();
 
-        $this->redirectRoute('kegiatan.index');
+        $this->redirectRoute('activity.index');
+    }
+
+    public function render(): View
+    {
+        return view('livewire.admin.activity.index')->with([
+            'activities' => Activity::latest()->paginate(4),
+        ]);
     }
 }

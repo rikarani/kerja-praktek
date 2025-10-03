@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Activity extends Model
@@ -18,6 +20,30 @@ class Activity extends Model
             'slug' => [
                 'source' => 'title',
             ],
+        ];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    #[Scope]
+    protected function search(Builder $query, string $search): void
+    {
+        $query->where('title', 'like', "%$search%");
+    }
+
+    #[Scope]
+    protected function published(Builder $query, ?bool $published = true): void
+    {
+        $query->where('published', $published);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'datetime:Y-m-d',
         ];
     }
 }
