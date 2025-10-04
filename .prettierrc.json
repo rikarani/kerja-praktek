@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/prettierrc.json",
+  "$schema": "https://schemastore.org/prettierrc.json",
   "tabWidth": 2,
   "printWidth": 120,
   "plugins": ["@shufo/prettier-plugin-blade"],
