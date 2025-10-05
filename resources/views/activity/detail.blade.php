@@ -33,11 +33,12 @@
           Tailwind CSS.</p>
         <div class="f-carousel" id="myCarousel">
           <div class="f-carousel__viewport">
-            @foreach (Storage::files($activity->title) as $image)
+            @foreach (Storage::disk('google')->files($activity->title) as $image)
               <div class="f-carousel__slide" data-fancybox="gallery"
-                data-lazy-src="{{ getDirectURL(Storage::url($image)) }}"
-                data-thumb-src="{{ getDirectURL(Storage::url($image)) }}">
-                <img class="h-96 w-full" src="{{ getDirectURL(Storage::url($image)) }}" alt="{{ $activity->title }}">
+                data-lazy-src="{{ getDirectURL(Storage::disk('google')->url($image)) }}"
+                data-thumb-src="{{ getDirectURL(Storage::disk('google')->url($image)) }}">
+                <img class="h-96 w-full" src="{{ getDirectURL(Storage::disk('google')->url($image)) }}"
+                  alt="{{ $activity->title }}">
               </div>
             @endforeach
           </div>
