@@ -1,13 +1,17 @@
 @extends('root')
 
 @section('content')
-  <div class="min-h-dvh bg-gray-900 py-24 sm:py-32">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-pretty text-4xl font-semibold tracking-tight text-white sm:text-5xl">Dokumentasi Kegiatan</h2>
-        <p class="mt-2 text-lg/8 text-gray-300">Teknik Informatika UNTAN</p>
+  <section class="min-h-dvh bg-white dark:bg-gray-900">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+      <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+        <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 lg:text-4xl dark:text-white">
+          Dokumentasi Kegiatan
+        </h2>
+        <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
+          Teknik Informatika Universitas Tanjungpura
+        </p>
       </div>
       <livewire:activity.index />
     </div>
-  </div>
+  </section>
 @endsection
