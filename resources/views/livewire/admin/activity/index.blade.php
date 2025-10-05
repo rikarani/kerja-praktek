@@ -135,8 +135,8 @@
               <td class="py-3">
                 <div class="flex items-center">
                   <a class="text-theme-sm text-gray-500 dark:text-gray-400"
-                    href="https://drive.google.com/drive/folders/1QwFLkZ_eR4wcw2OV3XHHowhmaxITFfP5" target="_blank">
-                    {{ Str::limit('https://drive.google.com/drive/folders/1QwFLkZ_eR4wcw2OV3XHHowhmaxITFfP5', 30) }}
+                    href="{{ Storage::disk('google')->url($activity->title) }}" target="_blank">
+                    {{ Str::limit(Storage::disk('google')->url($activity->title), 30) }}
                   </a>
                 </div>
               </td>
@@ -145,7 +145,7 @@
                   @if ($activity->published)
                     <button
                       class="bg-warning-500 hover:bg-warning-600 shadow-theme-xs inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                      wire:click="unpublish('{{ $activity->id }}')">
+                      wire:click="unpublish('{{ $activity->slug }}')">
                       <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -155,7 +155,7 @@
                   @else
                     <button
                       class="bg-success-500 hover:bg-success-600 shadow-theme-xs inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                      wire:click="publish('{{ $activity->id }}')">
+                      wire:click="publish('{{ $activity->slug }}')">
                       <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -176,7 +176,7 @@
                   </button>
                   <button
                     class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                    type="button" wire:click="hapus('{{ $activity->id }}')"
+                    type="button" wire:click="hapus('{{ $activity->slug }}')"
                     wire:confirm="Apakah anda yakin ingin menghapus data ini?">
                     <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                       stroke-width="1.5" stroke="currentColor">

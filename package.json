@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/package.json",
+  "$schema": "https://schemastore.org/package.json",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,12 +9,14 @@
   "devDependencies": {
     "@shufo/prettier-plugin-blade": "^1.16.1",
     "@tailwindcss/vite": "^4.1.14",
+    "flowbite-typography": "^1.0.5",
     "laravel-vite-plugin": "^2.0.1",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.14",
     "vite": "^7.1.7"
   },
   "dependencies": {
+    "@fancyapps/ui": "^6.0.34",
     "apexcharts": "^5.3.5",
     "flatpickr": "^4.6.13"
   }

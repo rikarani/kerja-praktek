@@ -1,8 +1,21 @@
 // import "jsvectormap/dist/jsvectormap.min.css";
 import "flatpickr/dist/flatpickr.min.css";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import "@fancyapps/ui/dist/carousel/carousel.css";
+import "@fancyapps/ui/dist/carousel/carousel.arrows.css";
+import "@fancyapps/ui/dist/carousel/carousel.autoplay.css";
+import "@fancyapps/ui/dist/carousel/carousel.thumbs.css";
+import "@fancyapps/ui/dist/carousel/carousel.dots.css";
 
 import flatpickr from "flatpickr";
 import { Indonesian } from "flatpickr/dist/l10n/id";
+
+import { Fancybox } from "@fancyapps/ui/dist/fancybox";
+import { Carousel } from "@fancyapps/ui/dist/carousel";
+import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows.js";
+import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay.js";
+import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload.js";
+import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots.js";
 
 import chart01 from "./components/charts/chart-01";
 // import chart02 from "./components/charts/chart-02";
@@ -32,6 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // chart03();
   // map01();
 });
+
+Carousel(
+  document.getElementById("myCarousel"),
+  {
+    Autoplay: {
+      showProgressbar: false,
+      timeout: 3000,
+    },
+  },
+  { Arrows, Autoplay, Lazyload, Dots },
+).init();
+
+Fancybox.bind("[data-fancybox]", {});
 
 // // Get the current year
 // const year = document.getElementById("year");
