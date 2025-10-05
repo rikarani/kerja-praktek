@@ -134,9 +134,9 @@
               </td>
               <td class="py-3">
                 <div class="flex items-center">
-                  <a class="text-theme-sm text-gray-500 dark:text-gray-400"
-                    href="https://drive.google.com/drive/folders/1QwFLkZ_eR4wcw2OV3XHHowhmaxITFfP5" target="_blank">
-                    {{ Str::limit('https://drive.google.com/drive/folders/1QwFLkZ_eR4wcw2OV3XHHowhmaxITFfP5', 30) }}
+                  <a class="text-theme-sm text-gray-500 dark:text-gray-400" href="{{ Storage::url($activity->title) }}"
+                    target="_blank">
+                    {{ Str::limit(Storage::url($activity->title), 30) }}
                   </a>
                 </div>
               </td>
