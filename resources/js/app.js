@@ -1,5 +1,7 @@
-// import "jsvectormap/dist/jsvectormap.min.css";
+import "flowbite";
+
 import "flatpickr/dist/flatpickr.min.css";
+
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import "@fancyapps/ui/dist/carousel/carousel.css";
 import "@fancyapps/ui/dist/carousel/carousel.arrows.css";
@@ -7,26 +9,133 @@ import "@fancyapps/ui/dist/carousel/carousel.autoplay.css";
 import "@fancyapps/ui/dist/carousel/carousel.thumbs.css";
 import "@fancyapps/ui/dist/carousel/carousel.dots.css";
 
+import { Editor } from "@tiptap/core";
+import { Placeholder } from "@tiptap/extensions";
+import { TextStyle, Color } from "@tiptap/extension-text-style";
+
+import Bold from "@tiptap/extension-bold";
+import StarterKit from "@tiptap/starter-kit";
+import Highlight from "@tiptap/extension-highlight";
+import TextAlign from "@tiptap/extension-text-align";
+
 import flatpickr from "flatpickr";
 import { Indonesian } from "flatpickr/dist/l10n/id";
 
 import { Fancybox } from "@fancyapps/ui/dist/fancybox";
 import { Carousel } from "@fancyapps/ui/dist/carousel";
+import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots.js";
 import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows.js";
 import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay.js";
 import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload.js";
-import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots.js";
 
 import chart01 from "./components/charts/chart-01";
-// import chart02 from "./components/charts/chart-02";
-// import chart03 from "./components/charts/chart-03";
-// import map01 from "./components/map-01";
-// import "./components/calendar-init.js";
-// import "./components/image-resize";
+
+window.setupEditor = (content) => {
+  const CustomBold = Bold.extend({
+    renderHTML({ mark, HTMLAttributes }) {
+      const { style, ...rest } = HTMLAttributes;
+
+      const newStyle = `font-weight: bold; ${style ? ` ${style}` : ""}`;
+
+      return ["span", { ...rest, style: newStyle.trim() }, 0];
+    },
+    addOptions() {
+      return {
+        ...this.parent?.(),
+        HTMLAttributes: {},
+      };
+    },
+  });
+
+  const FontSizeTextStyle = TextStyle.extend({
+    addAttributes() {
+      return {
+        fontSize: {
+          default: null,
+          parseHTML: (element) => element.style.fontSize,
+          renderHTML: (attributes) => {
+            if (!attributes.fontSize) {
+              return {};
+            }
+
+            return { style: `font-size: ${attributes.fontSize}` };
+          },
+        },
+      };
+    },
+  });
+
+  return {
+    content: content,
+    init(element) {
+      const editor = new Editor({
+        element: element,
+        extensions: [
+          StarterKit.configure({
+            bold: false,
+            marks: {
+              bold: false,
+            },
+            link: {
+              defaultProtocol: "https",
+            },
+          }),
+          CustomBold,
+          Highlight,
+          TextStyle,
+          Color,
+          FontSizeTextStyle,
+          Placeholder.configure({
+            placeholder: "kegiatan ini blablablabla",
+          }),
+          TextAlign.configure({
+            types: ["paragraph"],
+            alignments: ["left", "center", "right"],
+          }),
+        ],
+        content: this.content,
+        onUpdate: ({ editor }) => {
+          this.content = editor.getHTML();
+        },
+        editorProps: {
+          attributes: {
+            class: "format lg:format-lg dark:format-invert focus:outline-none format-blue max-w-none",
+          },
+        },
+      });
+
+      // buat fungsi toolbar
+      this.toggleBold = () => editor.chain().focus().toggleBold().run();
+      this.toggleItalic = () => editor.chain().focus().toggleItalic().run();
+      this.toggleUnderline = () => editor.chain().focus().toggleUnderline().run();
+      this.toggleStrike = () => editor.chain().focus().toggleStrike().run();
+      this.toggleHighlight = () => editor.chain().focus().toggleHighlight().run();
+      this.setLink = () => {
+        const href = prompt("Masukkan Link");
+        editor.chain().focus().toggleLink({ href }).run();
+      };
+      this.unsetLink = () => editor.chain().focus().unsetLink().run();
+      this.setColor = (color) => editor.chain().focus().setColor(color).run();
+      this.resetColor = () => editor.chain().focus().unsetColor().run();
+      this.toggleAlign = (align) => editor.chain().focus().toggleTextAlign(align).run();
+      this.toggleBulletList = () => editor.chain().focus().toggleBulletList().run();
+      this.toggleOrderedList = () => editor.chain().focus().toggleOrderedList().run();
+      this.toggleBlockquote = () => editor.chain().focus().toggleBlockquote().run();
+      this.toggleHorizontalRule = () => editor.chain().focus().setHorizontalRule().run();
+
+      this.$watch("content", (content) => {
+        // If the new content matches Tiptap's then we just skip.
+        if (content === editor.getHTML()) return;
+        editor.commands.setContent(content, false);
+      });
+    },
+  };
+};
 
 // // Init flatpickr
 flatpickr(".datepicker", {
   locale: Indonesian,
+  maxDate: "today",
   mode: "single",
   static: true,
   monthSelectorType: "static",
@@ -41,80 +150,24 @@ flatpickr(".datepicker", {
 // // Document Loaded
 document.addEventListener("DOMContentLoaded", () => {
   chart01();
-  // chart02();
-  // chart03();
-  // map01();
 });
 
-Carousel(
-  document.getElementById("myCarousel"),
-  {
-    Autoplay: {
-      showProgressbar: false,
-      timeout: 3000,
+if (document.getElementById("myCarousel")) {
+  Carousel(
+    document.getElementById("myCarousel"),
+    {
+      Autoplay: {
+        showProgressbar: false,
+        timeout: 3000,
+      },
     },
-  },
-  { Arrows, Autoplay, Lazyload, Dots },
-).init();
+    {
+      Arrows,
+      Autoplay,
+      Lazyload,
+      Dots,
+    },
+  ).init();
 
-Fancybox.bind("[data-fancybox]", {});
-
-// // Get the current year
-// const year = document.getElementById("year");
-// if (year) {
-//   year.textContent = new Date().getFullYear();
-// }
-
-// // For Copy to Clipboard
-// document.addEventListener("DOMContentLoaded", () => {
-//   const copyInput = document.getElementById("copy-input");
-//   if (copyInput) {
-//     // Select the copy button and input field
-//     const copyButton = document.getElementById("copy-button");
-//     const copyText = document.getElementById("copy-text");
-//     const websiteInput = document.getElementById("website-input");
-
-//     // Event listener for the copy button
-//     copyButton.addEventListener("click", () => {
-//       // Copy the input value to the clipboard
-//       navigator.clipboard.writeText(websiteInput.value).then(() => {
-//         // Change the text to "Copied"
-//         copyText.textContent = "Copied";
-
-//         // Reset the text back to "Copy" after 2 seconds
-//         setTimeout(() => {
-//           copyText.textContent = "Copy";
-//         }, 2000);
-//       });
-//     });
-//   }
-// });
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   const searchInput = document.getElementById("search-input");
-//   const searchButton = document.getElementById("search-button");
-
-//   // Function to focus the search input
-//   function focusSearchInput() {
-//     searchInput.focus();
-//   }
-
-//   // Add click event listener to the search button
-//   searchButton.addEventListener("click", focusSearchInput);
-
-//   // Add keyboard event listener for Cmd+K (Mac) or Ctrl+K (Windows/Linux)
-//   document.addEventListener("keydown", function (event) {
-//     if ((event.metaKey || event.ctrlKey) && event.key === "k") {
-//       event.preventDefault(); // Prevent the default browser behavior
-//       focusSearchInput();
-//     }
-//   });
-
-//   // Add keyboard event listener for "/" key
-//   document.addEventListener("keydown", function (event) {
-//     if (event.key === "/" && document.activeElement !== searchInput) {
-//       event.preventDefault(); // Prevent the "/" character from being typed
-//       focusSearchInput();
-//     }
-//   });
-// });
+  Fancybox.bind("[data-fancybox]", {});
+}
