@@ -30,12 +30,12 @@
             <span class="text-sm">{{ $activity->start_date->diffForHumans() }}</span>
           </div>
           <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            <a href="#">
+            <a href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
               {{ $activity->title }}
             </a>
           </h2>
-          <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
-            {{ $activity->description }}
+          <p class="mb-5 line-clamp-3 font-light text-gray-500 dark:text-gray-400">
+            {{ $activity->excerpt }}
           </p>
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
