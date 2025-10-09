@@ -461,7 +461,8 @@
   @apply text-theme-sm! flex! items-center! font-medium! text-gray-800! dark:text-white/90! dark:hover:border-gray-300! dark:hover:bg-gray-900!;
 }
 .flatpickr-day.nextMonthDay,
-.flatpickr-day.prevMonthDay {
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.flatpickr-disabled {
   @apply text-gray-400!;
 }
 .flatpickr-months .flatpickr-prev-month,
@@ -760,4 +761,12 @@ span.flatpickr-weekday,
     0px 1px 2px 0px rgba(16, 24, 40, 0.06);
   opacity: 0.8;
   cursor: grabbing; /* Changes the cursor to indicate dragging */
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }
