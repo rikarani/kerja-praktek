@@ -21,57 +21,32 @@ class Create extends Component
 
     public string $start_date;
 
+    public string $excerpt;
+
     public string $description;
 
     public array $documentations = [];
 
-    public function save(): void
+    public function saveAsDraft(): void
     {
-        $data = $this->validate();
-
-        foreach ($data['documentations'] as $documentation) {
-            $this->uploadDocumentation($documentation);
-        }
-
-        Activity::create([
-            'title' => $data['title'],
-            'type' => $data['type'],
-            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
-            'description' => $data['description'],
-            'published' => false,
-        ]);
-
-        $this->redirectRoute('activity.index');
+        $this->createActivity(shouldPublish: false);
     }
 
     public function saveAndPublish(): void
     {
-        $data = $this->validate();
-
-        foreach ($data['documentations'] as $documentation) {
-            $this->uploadDocumentation($documentation);
-        }
-
-        Activity::create([
-            'title' => $data['title'],
-            'type' => $data['type'],
-            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
-            'description' => $data['description'],
-            'published' => true,
-        ]);
-
-        $this->redirectRoute('activity.index');
+        $this->createActivity(shouldPublish: true);
     }
 
     protected function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'unique:activities,title', 'max:255'],
             'type' => ['required'],
             'start_date' => ['required'],
-            'description' => ['required', 'string', 'max:255'],
+            'excerpt' => ['required', 'string', 'max:500'],
+            'description' => ['required', 'string', 'max:10000'],
             'documentations' => ['required'],
-            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4'])->max('2mb'),
+            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4']),
         ];
     }
 
@@ -81,15 +56,38 @@ class Create extends Component
             'title.required' => 'Judul harus diisi',
             'title.string' => 'Judul harus berupa teks',
             'title.max' => 'Judul tidak boleh lebih dari 255 karakter',
+            'title.unique' => 'Judul sudah ada, silakan gunakan judul lain',
             'type.required' => 'Jenis kegiatan harus dipilih',
             'start_date.required' => 'Tanggal kegiatan harus diisi',
+            'excerpt.required' => 'Ringkasan harus diisi',
+            'excerpt.string' => 'Ringkasan harus berupa teks',
+            'excerpt.max' => 'Ringkasan tidak boleh lebih dari 255 karakter',
             'description.required' => 'Deskripsi harus diisi',
             'description.string' => 'Deskripsi harus berupa teks',
-            'description.max' => 'Deskripsi tidak boleh lebih dari 255 karakter',
+            'description.max' => 'Deskripsi tidak boleh lebih dari 10000 karakter',
             'documentations.required' => 'upload la dokumentasi ni',
             'documentations.*.mimes' => 'format yang dibolehkan: :values',
-            'documentations.*.max' => 'max tiap file 2mb',
         ];
+    }
+
+    private function createActivity(bool $shouldPublish): void
+    {
+        $data = $this->validate();
+
+        foreach ($data['documentations'] as $documentation) {
+            $this->uploadDocumentation($documentation);
+        }
+
+        Activity::create([
+            'title' => $data['title'],
+            'type' => $data['type'],
+            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
+            'excerpt' => $data['excerpt'],
+            'description' => $data['description'],
+            'published' => $shouldPublish,
+        ]);
+
+        $this->redirectRoute('activity.index');
     }
 
     private function uploadDocumentation(TemporaryUploadedFile $documentation): void
