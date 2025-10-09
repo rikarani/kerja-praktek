@@ -13,11 +13,20 @@
     "laravel-vite-plugin": "^2.0.1",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.14",
-    "vite": "^7.1.7"
+    "vite": "^7.1.9"
   },
   "dependencies": {
     "@fancyapps/ui": "^6.0.34",
+    "@tiptap/core": "^3.6.5",
+    "@tiptap/extension-bold": "^3.6.5",
+    "@tiptap/extension-highlight": "^3.6.5",
+    "@tiptap/extension-text-align": "^3.6.5",
+    "@tiptap/extension-text-style": "^3.6.5",
+    "@tiptap/extensions": "^3.6.5",
+    "@tiptap/pm": "^3.6.5",
+    "@tiptap/starter-kit": "^3.6.5",
     "apexcharts": "^5.3.5",
-    "flatpickr": "^4.6.13"
+    "flatpickr": "^4.6.13",
+    "flowbite": "^3.1.2"
   }
 }
