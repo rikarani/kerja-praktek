@@ -2,14 +2,14 @@
   <div class="space-y-4 md:flex md:gap-4 md:space-y-0">
     <div class="flex-1">
       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" for="title"
-        wire:loading.class="opacity-50" wire:target="save, saveAndPublish">
+        wire:loading.class="opacity-50" wire:target="saveAsDraft, saveAndPublish">
         Judul Kegiatan <span class="text-red-500">*</span>
       </label>
       <div class="relative">
         <input
           class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs dark:border-gray-700 w-full border border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg bg-transparent px-4 py-2.5 pr-10 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('title') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
           id="title" type="text" required wire:model="title" wire:loading.attr="disabled"
-          wire:target="save, saveAndPublish" placeholder="makan siang gratis">
+          wire:target="saveAsDraft, saveAndPublish" placeholder="makan siang gratis">
         @error('title')
           <span class="absolute right-3.5 top-1/2 -translate-y-1/2">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,13 +28,13 @@
     </div>
     <div class="flex-1">
       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" wire:loading.class="opacity-50"
-        wire:target="save, saveAndPublish">
+        wire:target="saveAsDraft, saveAndPublish">
         Bentuk Kegiatan <span class="text-red-500">*</span>
       </label>
       <div class="relative z-20 bg-transparent">
         <select
           class="{{ twMerge('disabled:opacity-50 shadow-theme-xs w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg bg-transparent px-4 py-2.5 pr-10 appearance-none text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:text-white/90 dark:placeholder:text-white/30', $errors->has('type') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '') }}"
-          wire:loading.attr="disabled" wire:target="save, saveAndPublish" required wire:model="type">
+          wire:loading.attr="disabled" wire:target="saveAsDraft, saveAndPublish" required wire:model="type">
           <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="" disabled selected>
             Pilih Opsi
           </option>
@@ -99,14 +99,14 @@
   </div>
   <div>
     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" wire:loading.class="opacity-50"
-      wire:target="save, saveAndPublish">
-      Deskripsi Kegiatan <span class="text-red-500">*</span>
+      wire:target="saveAsDraft, saveAndPublish">
+      Kata-Kata <span class="text-red-500">*</span>
     </label>
     <textarea
       class="{{ twMerge('disabled:opacity-50 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 focus:ring-3 focus:outline-hidden w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('description') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '') }}"
-      required wire:loading.attr="disabled" wire:target="save, saveAndPublish" wire:model="description"
-      placeholder="kegiatan ini blablabla" rows="6"></textarea>
-    @error('description')
+      required wire:loading.attr="disabled" wire:target="saveAsDraft, saveAndPublish" wire:model="excerpt"
+      placeholder="singkat saja" rows="2"></textarea>
+    @error('excerpt')
       <p class="text-theme-xs text-error-500">
         {{ $message }}
       </p>
@@ -114,12 +114,18 @@
   </div>
   <div>
     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" wire:loading.class="opacity-50"
-      wire:target="save, saveAndPublish">
+      wire:target="saveAsDraft, saveAndPublish">
+      Rincian Kegiatan <span class="text-red-500">*</span>
+    </label>
+    <x-editor wire:model="description" />
+  </div>
+  <div>
+    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" wire:loading.class="opacity-50"
+      wire:target="saveAsDraft, saveAndPublish">
       Dokumentasi Kegiatan <span class="text-red-500">*</span>
     </label>
-    <x-filepond::upload required wire:model="documentations" multiple allow-reorder allow-file-type-validation
-      accepted-file-types="image/png,image/jpeg,image/jpg,video/mp4" allow-file-size-validation
-      max-file-size="10MB" />
+    <x-filepond::upload required placeholder="png, jpg, jpeg dan mp4" wire:model="documentations" multiple
+      allow-reorder allow-file-type-validation accepted-file-types="image/png,image/jpeg,image/jpg,video/mp4" />
     @error('documentations')
       <p class="text-theme-xs text-error-500">
         {{ $message }}
@@ -145,8 +151,9 @@
     <div class="w-full md:w-auto">
       <button
         class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm font-medium text-white disabled:opacity-50"
-        type="button" wire:click="save" wire:loading.attr="disabled" wire:target="save, saveAndPublish">
-        <div role="status" wire:loading wire:target="save">
+        type="button" wire:click="saveAsDraft" wire:loading.attr="disabled"
+        wire:target="saveAsDraft, saveAndPublish">
+        <div role="status" wire:loading wire:target="saveAsDraft">
           <svg class="inline size-5 animate-spin fill-gray-600 text-gray-200 dark:fill-gray-300 dark:text-gray-600"
             aria-hidden="true" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -158,7 +165,7 @@
           </svg>
           <span class="sr-only">Loading...</span>
         </div>
-        <span wire:loading.remove wire:target="save">
+        <span wire:loading.remove wire:target="saveAsDraft">
           <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
             stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -171,7 +178,8 @@
     <div class="w-full md:w-auto">
       <button
         class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm font-medium text-white disabled:opacity-50"
-        type="button" wire:click="saveAndPublish" wire:loading.attr="disabled" wire:target="save, saveAndPublish">
+        type="button" wire:click="saveAndPublish" wire:loading.attr="disabled"
+        wire:target="saveAsDraft, saveAndPublish">
         <div role="status" wire:loading wire:target="saveAndPublish">
           <svg class="inline size-5 animate-spin fill-gray-600 text-gray-200 dark:fill-gray-300 dark:text-gray-600"
             aria-hidden="true" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
