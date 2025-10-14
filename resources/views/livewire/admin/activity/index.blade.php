@@ -191,11 +191,9 @@
           @endforeach
         </tbody>
       </table>
-      @if ($activities->count() > 4)
-        <div class="mt-4">
-          {{ $activities->links() }}
-        </div>
-      @endif
+      <div class="mt-4">
+        {{ $activities->links() }}
+      </div>
     @endif
   </div>
 </div>
