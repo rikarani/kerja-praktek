@@ -60,7 +60,7 @@
       <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Kegiatan Lainnya</h2>
       <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
         @foreach ($others as $other)
-          <article class="max-w-xs">
+          <article class="max-w-xs" wire:key="{{ $other->slug }}">
             <a href="#">
               <img class="mb-5 rounded-lg" src="https://picsum.photos/296/193.webp?blur=2&random={{ $loop->iteration }}"
                 alt="Image 1">

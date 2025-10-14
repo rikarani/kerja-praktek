@@ -95,7 +95,7 @@
         </thead>
         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
           @foreach ($activities as $activity)
-            <tr>
+            <tr wire:key="{{ $activity->slug }}">
               <td class="py-3">
                 <div class="flex items-center">
                   <div class="flex items-center gap-3">
