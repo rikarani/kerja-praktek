@@ -37,15 +37,7 @@
           <p class="mb-5 line-clamp-3 font-light text-gray-500 dark:text-gray-400">
             {{ $activity->excerpt }}
           </p>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <img class="h-7 w-7 rounded-full"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                alt="Jese Leos avatar" />
-              <span class="font-medium dark:text-white">
-                Jese Leos
-              </span>
-            </div>
+          <div class="flex items-center justify-end">
             <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium hover:underline"
               href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
               Lihat Selengkapnya
