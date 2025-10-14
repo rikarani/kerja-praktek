@@ -8,7 +8,7 @@
       <!-- Metric Group One -->
 
       <!-- ====== Chart One Start -->
-      @include('partials.chart.chart-01')
+      <livewire:admin.dashboard.chart />
       <!-- ====== Chart One End -->
     </div>
   </div>
