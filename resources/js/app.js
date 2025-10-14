@@ -23,10 +23,10 @@ import { Indonesian } from "flatpickr/dist/l10n/id";
 
 import { Fancybox } from "@fancyapps/ui/dist/fancybox";
 import { Carousel } from "@fancyapps/ui/dist/carousel";
-import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots.js";
-import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows.js";
-import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay.js";
-import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload.js";
+import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots";
+import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows";
+import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay";
+import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload";
 
 import chart01 from "./components/charts/chart-01";
 
