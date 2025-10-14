@@ -16,6 +16,7 @@ class IndexController extends Controller
     {
         return view('activity.detail', [
             'activity' => $activity,
+            'others' => Activity::all()->reject(fn ($item) => $item->id === $activity->id)->shuffle()->take(4),
         ]);
     }
 }
