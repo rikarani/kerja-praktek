@@ -18,25 +18,31 @@
         </span>
         <input
           class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 focus:ring-3 focus:outline-hidden h-11 w-full rounded-lg border border-gray-300 bg-transparent py-2.5 pl-11 pr-4 text-sm text-gray-800 placeholder:text-gray-400 sm:w-[300px] sm:min-w-[300px] dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-          type="text" placeholder="Search...">
+          type="text" wire:model.live="search" placeholder="Cari Kegiatan...">
       </div>
-      <button
-        class="text-theme-sm shadow-theme-xs inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200">
-        <svg class="fill-white stroke-current dark:fill-gray-800" width="20" height="20" viewBox="0 0 20 20"
-          fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2.29004 5.90393H17.7067" stroke="" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" />
-          <path d="M17.7075 14.0961H2.29085" stroke="" stroke-width="1.5" stroke-linecap="round"
-            stroke-linejoin="round" />
-          <path
-            d="M12.0826 3.33331C13.5024 3.33331 14.6534 4.48431 14.6534 5.90414C14.6534 7.32398 13.5024 8.47498 12.0826 8.47498C10.6627 8.47498 9.51172 7.32398 9.51172 5.90415C9.51172 4.48432 10.6627 3.33331 12.0826 3.33331Z"
-            fill="" stroke="" stroke-width="1.5" />
-          <path
-            d="M7.91745 11.525C6.49762 11.525 5.34662 12.676 5.34662 14.0959C5.34661 15.5157 6.49762 16.6667 7.91745 16.6667C9.33728 16.6667 10.4883 15.5157 10.4883 14.0959C10.4883 12.676 9.33728 11.525 7.91745 11.525Z"
-            fill="" stroke="" stroke-width="1.5" />
-        </svg>
-        Filter
-      </button>
+      <div class="relative z-20 bg-transparent" wire:ignore>
+        <select
+          class="{{ twMerge('disabled:opacity-50 shadow-theme-xs w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg bg-transparent px-4 py-2.5 pr-10 appearance-none text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:text-white/90 dark:placeholder:text-white/30', $errors->has('type') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '') }}"
+          required wire:model.live="bulan">
+          <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="" selected>
+            Semua Bulan
+          </option>
+          @foreach ($months as $month)
+            <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="{{ $month }}"
+              wire:key="{{ $month }}">
+              {{ $month }}
+            </option>
+          @endforeach
+        </select>
+        <span
+          class="pointer-events-none absolute right-4 top-1/2 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+          <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
       <a class="bg-brand-500 text-theme-sm hover:bg-brand-600 shadow-theme-xs inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 font-medium text-white dark:border-gray-700"
         href="{{ route('activity.create') }}">
         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -191,9 +197,11 @@
           @endforeach
         </tbody>
       </table>
-      <div class="mt-4">
-        {{ $activities->links() }}
-      </div>
+      @if ($activities->hasPages())
+        <div class="mt-4">
+          {{ $activities->links() }}
+        </div>
+      @endif
     @endif
   </div>
 </div>
