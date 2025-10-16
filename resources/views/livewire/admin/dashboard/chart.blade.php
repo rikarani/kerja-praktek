@@ -31,7 +31,7 @@
           },
           events: {
             dataPointSelection: function(event, context, options) {
-              console.log(months[options.dataPointIndex])
+              window.location.href = `/admin/kegiatan?bulan=${months[options.dataPointIndex]}`
             }
           }
         },
