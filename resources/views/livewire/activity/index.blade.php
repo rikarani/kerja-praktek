@@ -16,7 +16,8 @@
   @else
     <div class="grid gap-8 lg:grid-cols-2">
       @foreach ($activities as $activity)
-        <article class="rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800">
+        <article class="rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800"
+          wire:key="{{ $activity->slug }}">
           <div class="mb-5 flex items-center justify-between text-gray-500">
             <span
               class="bg-primary-100 text-primary-800 dark:bg-primary-200 dark:text-primary-800 inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium">
@@ -37,15 +38,7 @@
           <p class="mb-5 line-clamp-3 font-light text-gray-500 dark:text-gray-400">
             {{ $activity->excerpt }}
           </p>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <img class="h-7 w-7 rounded-full"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                alt="Jese Leos avatar" />
-              <span class="font-medium dark:text-white">
-                Jese Leos
-              </span>
-            </div>
+          <div class="flex items-center justify-end">
             <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium hover:underline"
               href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
               Lihat Selengkapnya

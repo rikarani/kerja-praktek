@@ -23,12 +23,10 @@ import { Indonesian } from "flatpickr/dist/l10n/id";
 
 import { Fancybox } from "@fancyapps/ui/dist/fancybox";
 import { Carousel } from "@fancyapps/ui/dist/carousel";
-import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots.js";
-import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows.js";
-import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay.js";
-import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload.js";
-
-import chart01 from "./components/charts/chart-01";
+import { Dots } from "@fancyapps/ui/dist/carousel/carousel.dots";
+import { Arrows } from "@fancyapps/ui/dist/carousel/carousel.arrows";
+import { Autoplay } from "@fancyapps/ui/dist/carousel/carousel.autoplay";
+import { Lazyload } from "@fancyapps/ui/dist/carousel/carousel.lazyload";
 
 window.setupEditor = (content) => {
   const CustomBold = Bold.extend({
@@ -145,11 +143,6 @@ flatpickr(".datepicker", {
     '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.25 6L9 12.25L15.25 18.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   nextArrow:
     '<svg class="stroke-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.75 19L15 12.75L8.75 6.5" stroke="" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-});
-
-// // Document Loaded
-document.addEventListener("DOMContentLoaded", () => {
-  chart01();
 });
 
 if (document.getElementById("myCarousel")) {
