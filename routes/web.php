@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('kegiatan')->group(function () {
             Route::view('/', 'admin.activity.index')->name('activity.index');
             Route::view('/tambah', 'admin.activity.create')->name('activity.create');
+
+            Route::view('/kategori', 'admin.category.index')->name('category.index');
         });
     });
 
