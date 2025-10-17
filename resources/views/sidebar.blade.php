@@ -1,7 +1,6 @@
 <aside
   class="sidebar z-9999 fixed left-0 top-0 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 duration-300 ease-linear lg:static lg:translate-x-0 dark:border-gray-800 dark:bg-black"
   :class="sidebarToggle ? 'translate-x-0 lg:w-[90px]' : '-translate-x-full'" @click.outside="sidebarToggle = false">
-  <!-- SIDEBAR HEADER -->
   <div class="sidebar-header flex items-center gap-2 pb-7 pt-8"
     :class="sidebarToggle ? 'justify-center' : 'justify-between'">
     <a href="/">
@@ -9,17 +8,12 @@
         <img class="dark:hidden" src="{{ asset('images/logo/logo.svg') }}" alt="Logo" />
         <img class="hidden dark:block" src="{{ asset('images/logo/logo-dark.svg') }}" alt="Logo" />
       </span>
-
       <img class="logo-icon" src="{{ asset('images/logo/logo-icon.svg') }}" alt="Logo"
         :class="sidebarToggle ? 'lg:block' : 'hidden'" />
     </a>
   </div>
-  <!-- SIDEBAR HEADER -->
-
   <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
-    <!-- Sidebar Menu -->
     <nav>
-      <!-- Menu Group -->
       <div>
         <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
           <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''">
@@ -33,7 +27,6 @@
           </svg>
         </h3>
         <ul class="mb-6 flex flex-col gap-4">
-          <!-- Menu Item Dashboard -->
           <li>
             <a class="menu-item {{ Route::is('dashboard') ? 'menu-item-active' : 'menu-item-inactive' }} group"
               href="{{ route('dashboard') }}">
@@ -48,9 +41,6 @@
               </span>
             </a>
           </li>
-          <!-- Menu Item Dashboard -->
-
-          <!-- Menu Item Calendar -->
           <li>
             <a class="menu-item {{ Route::is('activity.index') || Route::is('activity.create') ? 'menu-item-active' : 'menu-item-inactive' }} group"
               href="{{ route('activity.index') }}">
@@ -64,11 +54,17 @@
                 Kegiatan
               </span>
             </a>
+            <ul class="menu-dropdown mt-2 flex flex-col gap-1 pl-9">
+              <li>
+                <a class="menu-dropdown-item {{ Route::is('category.index') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }} group"
+                  href="{{ route('category.index') }}">
+                  Kategori Kegiatan
+                </a>
+              </li>
+            </ul>
           </li>
-          <!-- Menu Item Calendar -->
         </ul>
       </div>
     </nav>
-    <!-- Sidebar Menu -->
   </div>
 </aside>
