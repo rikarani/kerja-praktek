@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\Activity;
 
 use Livewire\Component;
 use App\Models\Activity;
+use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Carbon;
 use Illuminate\Contracts\View\View;
@@ -17,15 +18,20 @@ class Create extends Component
 
     public string $title;
 
-    public string $type = '';
+    public string $category_id = '';
 
-    public string $start_date;
+    public string $start_date = '';
 
     public string $excerpt;
 
     public string $description;
 
     public array $documentations = [];
+
+    public function mount(): void
+    {
+        $this->start_date = Carbon::now()->translatedFormat('d F Y');
+    }
 
     public function saveAsDraft(): void
     {
@@ -41,7 +47,7 @@ class Create extends Component
     {
         return [
             'title' => ['required', 'string', 'unique:activities,title', 'max:255'],
-            'type' => ['required'],
+            'category_id' => ['required', 'exists:categories,id'],
             'start_date' => ['required'],
             'excerpt' => ['required', 'string', 'max:500'],
             'description' => ['required', 'string', 'max:10000'],
@@ -57,7 +63,8 @@ class Create extends Component
             'title.string' => 'Judul harus berupa teks',
             'title.max' => 'Judul tidak boleh lebih dari 255 karakter',
             'title.unique' => 'Judul sudah ada, silakan gunakan judul lain',
-            'type.required' => 'Jenis kegiatan harus dipilih',
+            'category_id.required' => 'Jenis kegiatan harus dipilih',
+            'category_id.exists' => 'Jenis kegiatan tidak valid',
             'start_date.required' => 'Tanggal kegiatan harus diisi',
             'excerpt.required' => 'Ringkasan harus diisi',
             'excerpt.string' => 'Ringkasan harus berupa teks',
@@ -80,7 +87,7 @@ class Create extends Component
 
         Activity::create([
             'title' => $data['title'],
-            'type' => $data['type'],
+            'category_id' => $data['category_id'],
             'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
             'excerpt' => $data['excerpt'],
             'description' => $data['description'],
@@ -97,6 +104,8 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.activity.create');
+        return view('livewire.admin.activity.create')->with([
+            'categories' => Category::all(),
+        ]);
     }
 }
