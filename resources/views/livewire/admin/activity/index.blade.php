@@ -119,7 +119,7 @@
               <td class="py-3">
                 <div class="flex items-center">
                   <p class="text-theme-sm text-gray-500 dark:text-gray-400">
-                    {{ Str::ucfirst($activity->type) }}
+                    {{ Str::ucfirst($activity->category->name) }}
                   </p>
                 </div>
               </td>
