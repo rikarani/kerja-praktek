@@ -80,7 +80,7 @@
               <td class="py-3">
                 <div class="flex items-center">
                   <p class="text-theme-sm text-gray-500 dark:text-gray-400">
-                    100
+                    {{ $category->activities->count() }}
                   </p>
                 </div>
               </td>
