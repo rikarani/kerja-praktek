@@ -55,31 +55,33 @@
       </article>
     </div>
   </main>
-  <aside class="bg-gray-50 py-8 lg:py-24 dark:bg-gray-800" aria-label="Related articles">
-    <div class="mx-auto max-w-screen-xl px-4">
-      <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Kegiatan Lainnya</h2>
-      <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-        @foreach ($others as $other)
-          <article class="max-w-xs" wire:key="{{ $other->slug }}">
-            <a href="#">
-              <img class="mb-5 rounded-lg" src="https://picsum.photos/296/193.webp?blur=2&random={{ $loop->iteration }}"
-                alt="Image 1">
-            </a>
-            <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-              <a href="{{ route('activity.detail', ['activity' => $other->slug]) }}">{{ $other->title }}</a>
-            </h2>
-            <p class="mb-4 line-clamp-3 text-gray-500 dark:text-gray-400">
-              {{ $other->excerpt }}
-            </p>
-            <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium underline underline-offset-4 hover:no-underline"
-              href="{{ route('activity.detail', ['activity' => $other->slug]) }}">
-              Lihat Selengkapnya
-            </a>
-          </article>
-        @endforeach
+  @if ($others->isNotEmpty())
+    <aside class="bg-gray-50 py-8 lg:py-24 dark:bg-gray-800" aria-label="Related articles">
+      <div class="mx-auto max-w-screen-xl px-4">
+        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Kegiatan Lainnya</h2>
+        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          @foreach ($others as $other)
+            <article class="max-w-xs" wire:key="{{ $other->slug }}">
+              <a href="#">
+                <img class="mb-5 rounded-lg" src="https://picsum.photos/296/193.webp?blur=2&random={{ $loop->iteration }}"
+                  alt="Image 1">
+              </a>
+              <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                <a href="{{ route('activity.detail', ['activity' => $other->slug]) }}">{{ $other->title }}</a>
+              </h2>
+              <p class="mb-4 line-clamp-3 text-gray-500 dark:text-gray-400">
+                {{ $other->excerpt }}
+              </p>
+              <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium underline underline-offset-4 hover:no-underline"
+                href="{{ route('activity.detail', ['activity' => $other->slug]) }}">
+                Lihat Selengkapnya
+              </a>
+            </article>
+          @endforeach
+        </div>
       </div>
-    </div>
-  </aside>
+    </aside>
+  @endif
   <footer class="bg-white antialiased dark:bg-gray-800">
     <div class="mx-auto max-w-screen-xl p-4 py-6 md:p-8 lg:p-10">
       <div class="text-center">

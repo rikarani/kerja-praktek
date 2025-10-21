@@ -11,7 +11,7 @@ import "@fancyapps/ui/dist/carousel/carousel.dots.css";
 
 import { Editor } from "@tiptap/core";
 import { Placeholder } from "@tiptap/extensions";
-import { TextStyle, Color } from "@tiptap/extension-text-style";
+import { Color, TextStyle } from "@tiptap/extension-text-style";
 
 import Bold from "@tiptap/extension-bold";
 import StarterKit from "@tiptap/starter-kit";
