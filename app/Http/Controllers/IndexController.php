@@ -19,4 +19,12 @@ class IndexController extends Controller
             'others' => Activity::all()->reject(fn ($item) => $item->id === $activity->id)->shuffle()->take(4),
         ]);
     }
+
+    public function preview(Activity $activity): View
+    {
+        return view('admin.activity.preview', [
+            'activity' => $activity,
+            'others' => Activity::all()->reject(fn ($item) => $item->id === $activity->id)->shuffle()->take(4),
+        ]);
+    }
 }
