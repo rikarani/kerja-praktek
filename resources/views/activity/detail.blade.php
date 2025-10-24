@@ -1,5 +1,5 @@
 @php
-  [$photos, $videos] = App\Support\Helper::getDocumentationLinks(Storage::disk('google')->files($activity->title));
+  [$photos, $videos] = App\Support\Helper::getDocumentationLinks($activity);
 @endphp
 
 @extends('root')
