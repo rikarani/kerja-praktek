@@ -132,29 +132,8 @@
                 </div>
               </td>
               <td class="space-y-2 py-3">
-                @if ($activity->published)
-                  <button
-                    class="bg-warning-500 hover:bg-warning-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                    wire:click="unpublish('{{ $activity->slug }}')">
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                      stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                    <span>Batalkan Publikasi</span>
-                  </button>
-                @else
-                  <button
-                    class="bg-success-500 hover:bg-success-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                    wire:click="publish('{{ $activity->slug }}')">
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                      stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                    <span>Publikasi</span>
-                  </button>
-                @endif
-                <button
-                  class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700">
+                <a class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
+                  href="{{ route('activity.preview', ['activity' => $activity]) }}">
                   <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -162,7 +141,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                   </svg>
                   <span>Preview</span>
-                </button>
+                </a>
                 <button
                   class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
                   type="button" wire:click="hapus('{{ $activity->slug }}')"
