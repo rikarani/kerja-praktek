@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('type');
-            $table->date('start_date');
+            $table->text('excerpt');
             $table->text('description');
             $table->boolean('published');
+            $table->year('year');
+            $table->date('start_date');
             $table->timestamps();
+
+            $table->unique(['title', 'year']);
         });
     }
 

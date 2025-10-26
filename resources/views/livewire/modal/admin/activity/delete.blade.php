@@ -1,4 +1,4 @@
-<x-partial.modal name="delete-category">
+<x-partial.modal name="delete-activity">
   <div class="text-center">
     <div class="z-1 relative mb-7 flex items-center justify-center">
       <svg class="fill-error-50 dark:fill-error-500/15" width="90" height="90" viewBox="0 0 90 90" fill="none"
@@ -20,7 +20,7 @@
       Konfirmasi Hapus
     </h4>
     <p class="text-sm leading-6 text-gray-500 dark:text-gray-400">
-      Yakin mau hapus kategori <span class="font-semibold">{{ $category?->name }}</span>?
+      Yakin mau hapus kegiatan <span class="font-semibold">{{ $activity?->title }}</span>?
     </p>
     <div class="mt-7 flex w-full items-center justify-center gap-3">
       <button
@@ -38,7 +38,7 @@
           </svg>
           <span class="sr-only">Loading...</span>
         </div>
-        <span>Hapus Kategori</span>
+        <span>Hapus Kegiatan</span>
       </button>
     </div>
   </div>

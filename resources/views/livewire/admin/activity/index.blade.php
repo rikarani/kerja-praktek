@@ -43,6 +43,29 @@
           </svg>
         </span>
       </div>
+      <div class="relative z-20 bg-transparent" wire:ignore>
+        <select
+          class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 focus:ring-3 focus:outline-hidden w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-10 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+          required wire:model.live="tahun">
+          <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="" selected>
+            Semua Tahun
+          </option>
+          @foreach ($years as $year)
+            <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="{{ $year }}"
+              wire:key="{{ $year }}">
+              {{ $year }}
+            </option>
+          @endforeach
+        </select>
+        <span
+          class="pointer-events-none absolute right-4 top-1/2 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+          <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
       <a class="bg-brand-500 text-theme-sm hover:bg-brand-600 shadow-theme-xs inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 font-medium text-white dark:border-gray-700"
         href="{{ route('activity.create') }}">
         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -80,13 +103,6 @@
               <div class="flex items-center">
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                   Status Publikasi
-                </p>
-              </div>
-            </th>
-            <th class="py-3">
-              <div class="flex items-center">
-                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Link Google Drive
                 </p>
               </div>
             </th>
@@ -138,60 +154,27 @@
                   @endif
                 </div>
               </td>
-              <td class="py-3">
-                <div class="flex items-center">
-                  <a class="text-theme-sm text-gray-500 dark:text-gray-400"
-                    href="{{ Storage::disk('google')->url($activity->title) }}" target="_blank">
-                    {{ Str::limit(Storage::disk('google')->url($activity->title), 30) }}
-                  </a>
-                </div>
-              </td>
               <td class="space-y-2 py-3">
-                <div>
-                  @if ($activity->published)
-                    <button
-                      class="bg-warning-500 hover:bg-warning-600 shadow-theme-xs inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                      wire:click="unpublish('{{ $activity->slug }}')">
-                      <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                      </svg>
-                      <span>Batalkan Publikasi</span>
-                    </button>
-                  @else
-                    <button
-                      class="bg-success-500 hover:bg-success-600 shadow-theme-xs inline-flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                      wire:click="publish('{{ $activity->slug }}')">
-                      <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                      </svg>
-                      <span>Publikasi</span>
-                    </button>
-                  @endif
-                </div>
-                <div class="flex gap-2">
-                  <button
-                    class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700">
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                      stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                    </svg>
-                    <span>Edit</span>
-                  </button>
-                  <button
-                    class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                    type="button" wire:click="hapus('{{ $activity->slug }}')"
-                    wire:confirm="Apakah anda yakin ingin menghapus data ini?">
-                    <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                      stroke-width="1.5" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                    </svg>
-                    <span>Hapus</span>
-                  </button>
-                </div>
+                <a class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
+                  href="{{ route('activity.preview', ['activity' => $activity]) }}">
+                  <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                  <span>Preview</span>
+                </a>
+                <button
+                  class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
+                  type="button" @click="$dispatch('delete-activity', { activity: '{{ $activity->slug }}'} )">
+                  <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                  </svg>
+                  <span>Hapus</span>
+                </button>
               </td>
             </tr>
           @endforeach
@@ -202,6 +185,7 @@
           {{ $activities->links() }}
         </div>
       @endif
+      <livewire:modal.admin.activity.delete />
     @endif
   </div>
 </div>

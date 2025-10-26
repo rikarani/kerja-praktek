@@ -7,11 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Activity extends Model
 {
-    use HasFactory, Sluggable;
+    use Sluggable;
 
     protected $guarded = ['id'];
 
@@ -35,15 +34,27 @@ class Activity extends Model
     }
 
     #[Scope]
-    protected function search(Builder $query, string $search): void
+    protected function search(Builder $query, string $keyword): Builder
     {
-        $query->where('title', 'like', "%$search%");
+        return $query->whereLike('title', "%$keyword%");
     }
 
     #[Scope]
-    protected function published(Builder $query, ?bool $published = true): void
+    protected function published(Builder $query, ?bool $published = true): Builder
     {
-        $query->where('published', $published);
+        return $query->where('published', $published);
+    }
+
+    #[Scope]
+    protected function bulan(Builder $query, ?int $bulan): Builder
+    {
+        return $query->when($bulan, fn (Builder $q) => $q->whereMonth('start_date', $bulan));
+    }
+
+    #[Scope]
+    protected function tahun(Builder $query, ?string $tahun): Builder
+    {
+        return $query->when($tahun, fn (Builder $q) => $q->whereYear('start_date', $tahun));
     }
 
     protected function casts(): array

@@ -15,6 +15,16 @@ class IndexController extends Controller
     public function detail(Activity $activity): View
     {
         return view('activity.detail', [
+            'title' => "Kegiatan $activity->title",
+            'activity' => $activity,
+            'others' => Activity::all()->reject(fn ($item) => $item->id === $activity->id)->shuffle()->take(4),
+        ]);
+    }
+
+    public function preview(Activity $activity): View
+    {
+        return view('admin.activity.preview', [
+            'title' => "Preview $activity->title",
             'activity' => $activity,
             'others' => Activity::all()->reject(fn ($item) => $item->id === $activity->id)->shuffle()->take(4),
         ]);

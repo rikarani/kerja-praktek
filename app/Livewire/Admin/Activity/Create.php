@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rules\File;
 use Spatie\LivewireFilepond\WithFilePond;
@@ -30,7 +31,7 @@ class Create extends Component
 
     public function mount(): void
     {
-        $this->start_date = Carbon::now()->translatedFormat('d F Y');
+        $this->start_date = Carbon::now('Asia/Jakarta')->translatedFormat('d F Y');
     }
 
     public function saveAsDraft(): void
@@ -46,7 +47,7 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'unique:activities,title', 'max:255'],
+            'title' => ['required', 'string', Rule::unique('activities')->where('year', $this->getYearFromDate($this->start_date)), 'max:255'],
             'category_id' => ['required', 'exists:categories,id'],
             'start_date' => ['required'],
             'excerpt' => ['required', 'string', 'max:500'],
@@ -68,7 +69,7 @@ class Create extends Component
             'start_date.required' => 'Tanggal kegiatan harus diisi',
             'excerpt.required' => 'Ringkasan harus diisi',
             'excerpt.string' => 'Ringkasan harus berupa teks',
-            'excerpt.max' => 'Ringkasan tidak boleh lebih dari 255 karakter',
+            'excerpt.max' => 'Ringkasan tidak boleh lebih dari 500 karakter',
             'description.required' => 'Deskripsi harus diisi',
             'description.string' => 'Deskripsi harus berupa teks',
             'description.max' => 'Deskripsi tidak boleh lebih dari 10000 karakter',
@@ -86,12 +87,13 @@ class Create extends Component
         }
 
         Activity::create([
-            'title' => $data['title'],
             'category_id' => $data['category_id'],
-            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id_ID'),
+            'title' => $data['title'],
             'excerpt' => $data['excerpt'],
             'description' => $data['description'],
             'published' => $shouldPublish,
+            'year' => $this->getYearFromDate($data['start_date']),
+            'start_date' => Carbon::parseFromLocale($data['start_date'], 'id'),
         ]);
 
         $this->redirectRoute('activity.index');
@@ -99,7 +101,14 @@ class Create extends Component
 
     private function uploadDocumentation(TemporaryUploadedFile $documentation): void
     {
-        $documentation->storeAs($this->title, "{$this->title} - {$documentation->getClientOriginalName()}", 'google');
+        $year = $this->getYearFromDate($this->start_date);
+
+        $documentation->storeAs("{$year}/{$this->title}", "{$this->title} - {$documentation->getClientOriginalName()}", 'google');
+    }
+
+    private function getYearFromDate(string $date): int
+    {
+        return Carbon::parseFromLocale($date, 'id')->year;
     }
 
     public function render(): View

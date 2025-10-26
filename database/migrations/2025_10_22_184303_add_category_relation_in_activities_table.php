@@ -6,23 +6,18 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->dropColumn('type');
+            $table->foreignUuid('category_id')->after('id')->constrained()->cascadeOnDelete();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->string('type');
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
         });
     }
 };

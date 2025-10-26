@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'admin.activity.index')->name('activity.index');
             Route::view('/tambah', 'admin.activity.create')->name('activity.create');
 
+            Route::get('/preview/{activity}', [IndexController::class, 'preview'])->name('activity.preview');
             Route::view('/kategori', 'admin.category.index')->name('category.index');
         });
     });
