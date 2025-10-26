@@ -17,18 +17,18 @@ class Login extends Component
     #[Validate(rule: 'required', message: 'wajib diisi')]
     public string $password = '';
 
-    public function login()
+    public function login(): void
     {
         $data = $this->validate();
 
         if (! Auth::attempt($data)) {
             $this->reset('password');
+            Session::flash('error', 'Email atau Password salah');
 
-            return Session::flash('error', 'Email atau Password salah');
+            return;
         }
 
         Session::regenerate();
-
         $this->redirectRoute('dashboard');
     }
 
