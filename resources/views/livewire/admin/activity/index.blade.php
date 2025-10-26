@@ -43,6 +43,29 @@
           </svg>
         </span>
       </div>
+      <div class="relative z-20 bg-transparent" wire:ignore>
+        <select
+          class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 focus:ring-3 focus:outline-hidden w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-10 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+          required wire:model.live="tahun">
+          <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="" selected>
+            Semua Tahun
+          </option>
+          @foreach ($years as $year)
+            <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="{{ $year }}"
+              wire:key="{{ $year }}">
+              {{ $year }}
+            </option>
+          @endforeach
+        </select>
+        <span
+          class="pointer-events-none absolute right-4 top-1/2 z-30 -translate-y-1/2 text-gray-500 dark:text-gray-400">
+          <svg class="stroke-current" width="20" height="20" viewBox="0 0 20 20" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.79175 7.396L10.0001 12.6043L15.2084 7.396" stroke="" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
       <a class="bg-brand-500 text-theme-sm hover:bg-brand-600 shadow-theme-xs inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 font-medium text-white dark:border-gray-700"
         href="{{ route('activity.create') }}">
         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -144,8 +167,7 @@
                 </a>
                 <button
                   class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
-                  type="button" wire:click="hapus('{{ $activity->slug }}')"
-                  wire:confirm="Apakah anda yakin ingin menghapus data ini?">
+                  type="button" @click="$dispatch('delete-activity', { activity: '{{ $activity->slug }}'} )">
                   <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -163,6 +185,7 @@
           {{ $activities->links() }}
         </div>
       @endif
+      <livewire:modal.admin.activity.delete />
     @endif
   </div>
 </div>
