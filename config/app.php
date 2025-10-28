@@ -43,6 +43,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Secret Key
+    |--------------------------------------------------------------------------
+    |
+    | used by the application to sign things like cookies and other secure
+    | data. You should set this to a random, long string to ensure the security
+    | of your application.
+    |
+    */
+
+    'secret' => env('APP_SECRET', 'mysecretkey'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |
