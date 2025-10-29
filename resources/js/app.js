@@ -153,6 +153,9 @@ if (document.getElementById("myCarousel")) {
         showProgressbar: false,
         timeout: 3000,
       },
+      Dots: {
+        maxCount: 25,
+      },
     },
     {
       Arrows,
