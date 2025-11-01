@@ -16,6 +16,8 @@ class User extends Authenticatable
 
     protected $hidden = ['password'];
 
+    protected $with = ['role'];
+
     public function activities(): HasMany
     {
         return $this->hasMany(Activity::class);
@@ -24,6 +26,11 @@ class User extends Authenticatable
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->name === 'Admin';
     }
 
     protected function casts(): array
