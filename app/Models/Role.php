@@ -11,6 +11,8 @@ class Role extends Model
 {
     use HasUuids, Sluggable;
 
+    protected $guarded = ['id', 'slug'];
+
     public function sluggable(): array
     {
         return [
