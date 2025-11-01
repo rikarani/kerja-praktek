@@ -12,6 +12,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/kegiatan/{activity}/preview', [IndexController::class, 'preview'])->name('activity.preview');
+
     Route::prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
 
@@ -19,7 +21,6 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'admin.activity.index')->name('activity.index');
             Route::view('/tambah', 'admin.activity.create')->name('activity.create');
 
-            Route::get('/preview/{activity}', [IndexController::class, 'preview'])->name('activity.preview');
             Route::view('/kategori', 'admin.category.index')->name('category.index');
         });
     });
