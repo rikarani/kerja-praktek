@@ -9,15 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->foreignUuid('user_id')->after('category_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('author_id')->after('category_id')->constrained('users', 'id')->cascadeOnDelete();
         });
     }
 
     public function down(): void
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            $table->dropForeign(['author_id']);
+            $table->dropColumn('author_id');
         });
     }
 };
