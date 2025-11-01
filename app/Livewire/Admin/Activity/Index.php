@@ -9,7 +9,9 @@ use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 class Index extends Component
 {
@@ -34,12 +36,15 @@ class Index extends Component
 
     public function render(): View
     {
-        $month = $this->month ? Carbon::parseFromLocale($this->month, 'id')->month : null;
-
         return view('livewire.admin.activity.index')->with([
             'months' => Collection::make(range(1, 12))->map(fn (int $month) => Carbon::create(null, $month)->translatedFormat('F')),
             'years' => Activity::pluck('year')->unique()->sort(),
-            'activities' => Activity::month($month)->year($this->year)->search($this->search)->latest()->paginate(5),
+            'activities' => Activity::month($this->getMonth())->year($this->year)->search($this->search)->when(! Auth::user()->isAdmin(), fn (Builder $query) => $query->where('author_id', Auth::id()))->latest()->paginate(5),
         ]);
+    }
+
+    private function getMonth(): ?int
+    {
+        return $this->month ? Carbon::parseFromLocale($this->month, 'id')->month : null;
     }
 }
