@@ -34,9 +34,9 @@ class Activity extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 
     #[Scope]
