@@ -1,5 +1,7 @@
+@use('App\Support\Helper')
+
 @php
-  [$photos, $videos] = App\Support\Helper::getDocumentationLinks($activity);
+  [$photos, $videos] = Helper::getDocumentationLinks($activity);
 @endphp
 
 @extends('root')
@@ -18,6 +20,22 @@
             </svg>
             <span>Kembali ke Halaman Utama</span>
           </a>
+          <address class="mb-6 flex items-center not-italic">
+            <div class="mr-3 inline-flex items-center text-sm text-gray-900 dark:text-white">
+              <img class="mr-4 h-16 w-16 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                alt="Jese Leos">
+              <div>
+                <a class="text-xl font-bold text-gray-900 dark:text-white" href="#"
+                  rel="author">{{ $activity->author->name }}
+                </a>
+                <p class="text-base text-gray-500 dark:text-gray-400">
+                  <time title="February 8th, 2022" pubdate datetime="2022-02-08">
+                    Diupload pada tanggal {{ $activity->created_at->translatedFormat('d F Y') }}
+                  </time>
+                </p>
+              </div>
+            </div>
+          </address>
           <h1 class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
             {{ $activity->title }}
           </h1>
@@ -34,7 +52,7 @@
               @foreach ($photos as $photo)
                 <div class="f-carousel__slide" data-fancybox="gallery" data-lazy-src="{{ $photo }}"
                   data-thumb-src="{{ $photo }}">
-                  <img class="aspect-video" src="{{ $photo }}" alt="{{ $activity->title }}"
+                  <img class="aspect-auto" src="{{ $photo }}" alt="{{ $activity->title }}"
                     referrerpolicy="no-referrer">
                 </div>
               @endforeach
@@ -63,8 +81,8 @@
           @foreach ($others as $other)
             <article class="max-w-xs" wire:key="{{ $other->slug }}">
               <a href="#">
-                <img class="mb-5 rounded-lg" src="https://picsum.photos/296/193.webp?blur=2&random={{ $loop->iteration }}"
-                  alt="Image 1">
+                <img class="mb-5 rounded-lg"
+                  src="https://picsum.photos/296/193.webp?blur=2&random={{ $loop->iteration }}" alt="Image 1">
               </a>
               <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
                 <a href="{{ route('activity.detail', ['activity' => $other->slug]) }}">{{ $other->title }}</a>
