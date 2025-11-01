@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Policies\ActivityPolicy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 
+#[UsePolicy(ActivityPolicy::class)]
 class Activity extends Model
 {
     use HasUuids, Sluggable;
