@@ -20,13 +20,13 @@
           wire:key="{{ $activity->slug }}">
           <div class="mb-5 flex items-center justify-between text-gray-500">
             <span
-              class="bg-primary-100 text-primary-800 dark:bg-primary-200 dark:text-primary-800 inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium">
-              <svg class="mr-1 h-3 w-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              class="bg-blue-light-100 text-blue-light-800 dark:bg-blue-light-200 dark:text-blue-light-800 flex items-center rounded px-2.5 py-0.5 text-xs font-medium">
+              <svg class="mr-2 size-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z">
                 </path>
               </svg>
-              {{ Str::ucfirst($activity->category->name) }}
+              <span class="-mt-px">{{ Str::ucfirst($activity->category->name) }}</span>
             </span>
             <span class="text-sm">{{ $activity->start_date->diffForHumans() }}</span>
           </div>
@@ -38,7 +38,15 @@
           <p class="mb-5 line-clamp-3 font-light text-gray-500 dark:text-gray-400">
             {{ $activity->excerpt }}
           </p>
-          <div class="flex items-center justify-end">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <img class="h-7 w-7 rounded-full"
+                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                alt="Jese Leos avatar" />
+              <span class="font-medium dark:text-white">
+                {{ $activity->author->name }}
+              </span>
+            </div>
             <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium hover:underline"
               href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
               Lihat Selengkapnya
