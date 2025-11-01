@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 
 class IndexController extends Controller
 {
@@ -25,6 +26,8 @@ class IndexController extends Controller
 
     public function preview(Activity $activity): View
     {
+        Gate::authorize('view', $activity);
+
         return view('admin.activity.preview', [
             'title' => "Preview $activity->title",
             'activity' => $activity,
