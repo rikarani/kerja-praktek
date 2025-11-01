@@ -88,6 +88,13 @@
             <th class="py-3">
               <div class="flex items-center">
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
+                  Yang Upload
+                </p>
+              </div>
+            </th>
+            <th class="py-3">
+              <div class="flex items-center">
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                   Nama Kegiatan
                 </p>
               </div>
@@ -118,6 +125,20 @@
         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
           @foreach ($activities as $activity)
             <tr wire:key="{{ $activity->slug }}">
+              <td class="py-3">
+                <div class="flex items-center">
+                  <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 overflow-hidden rounded-full">
+                      <img src="{{ asset('images/user/user-17.jpg') }}" alt="brand" />
+                    </div>
+                    <div>
+                      <span class="text-theme-sm block font-medium text-gray-800 dark:text-white/90">
+                        {{ $activity->author->name }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </td>
               <td class="py-3">
                 <div class="flex items-center">
                   <div class="flex items-center gap-3">
@@ -154,8 +175,8 @@
                   @endif
                 </div>
               </td>
-              <td class="space-y-2 py-3">
-                <a class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
+              <td class="flex gap-3 py-3">
+                <a class="bg-blue-light-500 hover:bg-blue-light-600 shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
                   href="{{ route('activity.preview', ['activity' => $activity]) }}">
                   <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
@@ -166,7 +187,7 @@
                   <span>Preview</span>
                 </a>
                 <button
-                  class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
+                  class="bg-error-500 hover:bg-error-600 shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-white dark:border-gray-700"
                   type="button" @click="$dispatch('delete-activity', { activity: '{{ $activity->slug }}'} )">
                   <svg class="size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor">
