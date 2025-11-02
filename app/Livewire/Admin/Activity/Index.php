@@ -39,7 +39,12 @@ class Index extends Component
         return view('livewire.admin.activity.index')->with([
             'months' => Collection::make(range(1, 12))->map(fn (int $month) => Carbon::create(null, $month)->translatedFormat('F')),
             'years' => Activity::pluck('year')->unique()->sort(),
-            'activities' => Activity::month($this->getMonth())->year($this->year)->search($this->search)->when(! Auth::user()->isAdmin(), fn (Builder $query) => $query->where('author_id', Auth::id()))->latest()->paginate(5),
+            'activities' => Activity::month($this->getMonth())
+                ->year($this->year)
+                ->search($this->search)
+                ->when(! Auth::user()->isAdmin(), fn (Builder $query) => $query->where('author_id', Auth::id()))
+                ->latest()
+                ->paginate(5),
         ]);
     }
 
