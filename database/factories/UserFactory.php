@@ -15,7 +15,7 @@ class UserFactory extends Factory
             'role_id' => Role::pluck('id')->random(),
             'name' => fake()->name(),
             'email' => fake()->unique()->freeEmail(),
-            'password' => Hash::make(Config::get('app.secret')),
+            'password' => Hash::make(Config::get('app.default_password')),
         ];
     }
 }
