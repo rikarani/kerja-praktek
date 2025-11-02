@@ -9,7 +9,9 @@ use Livewire\WithPagination;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 class Index extends Component
 {
@@ -18,18 +20,15 @@ class Index extends Component
     #[Url(except: '')]
     public string $search = '';
 
-    #[Url(except: '')]
-    public string $bulan = '';
+    #[Url(as: 'bulan', except: '')]
+    public string $month = '';
 
-    #[Url(except: '')]
-    public string $tahun = '';
+    #[Url(as: 'tahun', except: '')]
+    public string $year = '';
 
     public function hapus(Activity $activity): void
     {
-        // delete from google drive
         Storage::disk('google')->delete($activity->title);
-
-        // delete from db
         $activity->delete();
 
         $this->redirectRoute('activity.index');
@@ -37,12 +36,20 @@ class Index extends Component
 
     public function render(): View
     {
-        $bulan = $this->bulan ? Carbon::parseFromLocale($this->bulan, 'id')->month : null;
-
         return view('livewire.admin.activity.index')->with([
             'months' => Collection::make(range(1, 12))->map(fn (int $month) => Carbon::create(null, $month)->translatedFormat('F')),
             'years' => Activity::pluck('year')->unique()->sort(),
-            'activities' => Activity::bulan($bulan)->tahun($this->tahun)->search($this->search)->latest()->paginate(5),
+            'activities' => Activity::month($this->getMonth())
+                ->year($this->year)
+                ->search($this->search)
+                ->when(! Auth::user()->isAdmin(), fn (Builder $query) => $query->where('author_id', Auth::id()))
+                ->latest()
+                ->paginate(5),
         ]);
+    }
+
+    private function getMonth(): ?int
+    {
+        return $this->month ? Carbon::parseFromLocale($this->month, 'id')->month : null;
     }
 }

@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\File;
 use Spatie\LivewireFilepond\WithFilePond;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -87,6 +88,7 @@ class Create extends Component
         }
 
         Activity::create([
+            'author_id' => Auth::user()->id,
             'category_id' => $data['category_id'],
             'title' => $data['title'],
             'excerpt' => $data['excerpt'],

@@ -60,7 +60,7 @@
             @foreach ($photos as $photo)
               <div class="f-carousel__slide" data-fancybox="gallery" data-lazy-src="{{ $photo }}"
                 data-thumb-src="{{ $photo }}">
-                <img class="aspect-video" src="{{ $photo }}" alt="{{ $activity->title }}"
+                <img class="aspect-auto" src="{{ $photo }}" alt="{{ $activity->title }}"
                   referrerpolicy="no-referrer">
               </div>
             @endforeach
