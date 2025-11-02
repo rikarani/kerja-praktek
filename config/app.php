@@ -43,16 +43,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Secret Key
+    | Application Default Password
     |--------------------------------------------------------------------------
     |
-    | used by the application to sign things like cookies and other secure
-    | data. You should set this to a random, long string to ensure the security
-    | of your application.
+    | Used by the application to initialize default user passwords.
     |
     */
 
-    'secret' => env('APP_SECRET', 'mysecretkey'),
+    'default_password' => env('APP_DEFAULT_PASSWORD', 'password'),
 
     /*
     |--------------------------------------------------------------------------
