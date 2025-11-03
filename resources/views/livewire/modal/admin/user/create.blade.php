@@ -83,7 +83,7 @@
           type="password" wire:target="submit" wire:loading.attr="disabled" wire:model="password"
           placeholder="********">
         <p class="text-theme-xs text-error-500 mt-1.5">
-          opsional, jika tidak diisi maka defaulnya adalah "password"
+          opsional, jika tidak diisi maka defaultnya adalah "password"
         </p>
         @error('password')
           <p class="text-theme-xs text-error-500 mt-1.5">
