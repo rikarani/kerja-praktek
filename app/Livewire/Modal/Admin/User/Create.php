@@ -41,7 +41,7 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:users,name',
+            'name' => 'required|string|max:255',
             'email' => 'required|email:dns|unique:users,email',
             'role_id' => 'required|exists:roles,id',
             'password' => 'nullable|string|min:8',
