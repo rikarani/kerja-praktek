@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
 
             Route::view('/kategori', 'admin.category.index')->name('category.index');
         });
+
+        Route::view('/users', 'admin.user.index', ['title' => 'Manajemen User'])->name('user.index');
     });
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
