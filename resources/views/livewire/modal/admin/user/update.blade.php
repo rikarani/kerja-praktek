@@ -23,7 +23,7 @@
           Email
         </label>
         <input
-          class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('name') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
+          class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('email') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
           type="text" wire:target="submit" required wire:loading.attr="disabled" wire:model="email"
           placeholder="udinpetot@gmail.com">
         @error('email')
@@ -38,7 +38,7 @@
         </label>
         <div class="relative z-20 bg-transparent">
           <select
-            class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg bg-transparent px-4 py-2.5 pr-10 appearance-none text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:text-white/90 dark:placeholder:text-white/30', $errors->has('type') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
+            class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs w-full border border-gray-300 dark:border-gray-700 dark:bg-gray-900 focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 rounded-lg bg-transparent px-4 py-2.5 pr-10 appearance-none text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:text-white/90 dark:placeholder:text-white/30', $errors->has('role_id') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
             wire:model="role_id">
             <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="" disabled>
               Pilih Role
@@ -79,11 +79,11 @@
           Password
         </label>
         <input
-          class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('name') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
+          class="{{ twMerge(['disabled:opacity-50 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30', $errors->has('password') ? 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' : '']) }}"
           type="password" wire:target="submit" wire:loading.attr="disabled" wire:model="password"
           placeholder="********">
         <p class="text-theme-xs text-error-500 mt-1.5">
-          opsional, jika tidak diisi maka defaulnya adalah "password"
+          opsional, jika tidak diisi maka defaultnya adalah "password"
         </p>
         @error('password')
           <p class="text-theme-xs text-error-500 mt-1.5">
