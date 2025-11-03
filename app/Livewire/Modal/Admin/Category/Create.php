@@ -14,7 +14,7 @@ class Create extends Component
     public string $name = '';
 
     #[On('create-category')]
-    public function create(): void
+    public function prepare(): void
     {
         $this->dispatch('open-modal', modal: 'create-category');
     }

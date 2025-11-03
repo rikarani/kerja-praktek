@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,7 +22,7 @@ class User extends Authenticatable
 
     public function activities(): HasMany
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(Activity::class, 'author_id');
     }
 
     public function role(): BelongsTo
@@ -31,6 +33,12 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role->name === 'Admin';
+    }
+
+    #[Scope]
+    protected function search(Builder $query, string $keyword): Builder
+    {
+        return $query->when($keyword, fn (Builder $q) => $q->whereLike('name', "%$keyword%"));
     }
 
     protected function casts(): array
