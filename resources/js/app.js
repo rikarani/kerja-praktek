@@ -80,7 +80,6 @@ window.setupEditor = (content) => {
           }),
           CustomBold,
           Highlight,
-          TextStyle,
           Color,
           FontSizeTextStyle,
           Placeholder.configure({
