@@ -37,6 +37,7 @@ class Create extends Component
 
     public function saveAsDraft(): void
     {
+        dd($this->all());
         $this->createActivity(shouldPublish: false);
     }
 
