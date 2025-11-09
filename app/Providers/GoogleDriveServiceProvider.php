@@ -13,20 +13,14 @@ use Illuminate\Contracts\Foundation\Application;
 
 class GoogleDriveServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
-        Storage::extend('google', function (Application $app, array $config) {
+        Storage::extend('google', function (Application $app, array $config): FilesystemAdapter {
             $client = new Client;
             $client->setAuthConfig(storage_path('app/google/secret.json'));
             $client->addScope(Drive::DRIVE);
