@@ -10,7 +10,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 
 class Index extends Component
@@ -25,14 +24,6 @@ class Index extends Component
 
     #[Url(as: 'tahun', except: '')]
     public string $year = '';
-
-    public function hapus(Activity $activity): void
-    {
-        Storage::disk('google')->delete($activity->title);
-        $activity->delete();
-
-        $this->redirectRoute('activity.index');
-    }
 
     public function render(): View
     {
