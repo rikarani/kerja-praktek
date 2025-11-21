@@ -22,12 +22,11 @@ class GoogleDriveServiceProvider extends ServiceProvider
     {
         Storage::extend('google', function (Application $app, array $config): FilesystemAdapter {
             $client = new Client;
-            $client->setAuthConfig(storage_path('app/google/secret.json'));
-            $client->addScope(Drive::DRIVE);
+            $client->setClientId($config['clientId']);
+            $client->setClientSecret($config['clientSecret']);
+            $client->refreshToken($config['refreshToken']);
 
-            $adapter = new GoogleDriveAdapter(new Drive($client), null, [
-                'sharedFolderId' => $config['sharedFolderId'] ?? null,
-            ]);
+            $adapter = new GoogleDriveAdapter(new Drive($client), $config['folder'] ?? '/');
 
             return new FilesystemAdapter(new Filesystem($adapter), $adapter);
         });
