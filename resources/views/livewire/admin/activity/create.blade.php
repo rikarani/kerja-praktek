@@ -45,7 +45,7 @@
             </option>
           @endforeach
         </select>
-        @error('type')
+        @if ($errors->has('type'))
           <span class="absolute right-3.5 top-1/2 -translate-y-1/2">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -62,7 +62,7 @@
                 stroke-linecap="round" stroke-linejoin="round" />
             </svg>
           </span>
-        @enderror
+        @endif
       </div>
       @error('type')
         <p class="text-theme-xs text-error-500 mt-1.5">
