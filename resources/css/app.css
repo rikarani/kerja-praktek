@@ -201,19 +201,11 @@
     }
 
     .filepond--item {
-        max-width: calc(50% - 1rem);
+        max-width: calc(33% - 1rem);
     }
 }
 
-@media (min-width: 768px) {
-    .filepond--root {
-        .filepond--item {
-            max-width: calc(33% - 1rem);
-        }
-    }
-}
-
-@media (min-width: 1024px) {
+.add-documentation {
     .filepond--root {
         .filepond--item {
             max-width: calc(50% - 1rem);
