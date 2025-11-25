@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class ActivityController extends Controller
 {
     public function detail(Activity $activity): View
     {
-        $response = Gate::inspect('detail', $activity);
-
-        if (! $response->allowed()) {
-            abort(403, $response->message());
+        if (Auth::user()->cannot('view', $activity)) {
+            abort(403, 'Anda tidak memiliki izin untuk melihat detail kegiatan ini');
         }
 
         return view('admin.activity.detail', [
@@ -24,10 +22,8 @@ class ActivityController extends Controller
 
     public function preview(Activity $activity): View
     {
-        $response = Gate::inspect('preview', $activity);
-
-        if (! $response->allowed()) {
-            abort(403, $response->message());
+        if (Auth::user()->cannot('view', $activity)) {
+            abort(403, 'Anda tidak memiliki izin untuk melihat preview kegiatan ini');
         }
 
         return view('admin.activity.preview', [
