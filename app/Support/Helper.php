@@ -91,6 +91,16 @@ class Helper
         return $m[1] ?? null;
     }
 
+    /**
+     * Invalidate the documentation cache for an activity.
+     * Call this when files are added or removed.
+     */
+    public static function invalidateDocumentationCache(Activity $activity): void
+    {
+        $cacheKey = sprintf('activity_docs:%s:%s', $activity->year, $activity->slug);
+        Cache::forget($cacheKey);
+    }
+
     private static function getPartitionedPaths(Activity $activity): Collection
     {
         $cacheKey = sprintf('activity_docs:%s:%s', $activity->year, $activity->slug);
