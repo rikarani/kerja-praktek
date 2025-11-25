@@ -50,7 +50,7 @@ class AddDocumentations extends Component
     protected function rules(): array
     {
         return [
-            'documentations' => ['required'],
+            'documentations' => ['required', 'array'],
             'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4']),
         ];
     }
