@@ -7,7 +7,7 @@
     <button
       class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 flex items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-sm font-medium text-white disabled:opacity-50"
       type="button" wire:click="addDocumentation" wire:loading.attr="disabled" wire:target="addDocumentation">
-      <div role="status" wire:loading wire:target="saveAsDraft">
+      <div role="status" wire:loading wire:target="addDocumentation">
         <svg class="inline size-5 animate-spin fill-gray-600 text-gray-200 dark:fill-gray-300 dark:text-gray-600"
           aria-hidden="true" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -19,7 +19,7 @@
         </svg>
         <span class="sr-only">Loading...</span>
       </div>
-      <span wire:loading.remove wire:target="saveAsDraft">
+      <span wire:loading.remove wire:target="addDocumentation">
         <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
