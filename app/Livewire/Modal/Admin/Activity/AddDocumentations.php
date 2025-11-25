@@ -4,6 +4,7 @@ namespace App\Livewire\Modal\Admin\Activity;
 
 use Livewire\Component;
 use App\Models\Activity;
+use App\Support\Helper;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
@@ -37,6 +38,8 @@ class AddDocumentations extends Component
         foreach ($data['documentations'] as $documentation) {
             $this->uploadDocumentation($documentation);
         }
+
+        Helper::invalidateDocumentationCache($this->activity);
 
         $this->dispatch('close-modal');
         $this->redirectRoute('admin.activity.detail', ['activity' => $this->activity]);

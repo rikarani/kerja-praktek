@@ -91,9 +91,20 @@ class Helper
         return $m[1] ?? null;
     }
 
+    /**
+     * Invalidate the documentation cache for an activity.
+     * Call this when files are added or removed.
+     *
+     * @param Activity $activity
+     */
+    public static function invalidateDocumentationCache(Activity $activity): void
+    {
+        Cache::forget(self::getDocumentationCacheKey($activity));
+    }
+
     private static function getPartitionedPaths(Activity $activity): Collection
     {
-        $cacheKey = sprintf('activity_docs:%s:%s', $activity->year, $activity->slug);
+        $cacheKey = self::getDocumentationCacheKey($activity);
 
         return Cache::remember($cacheKey, Carbon::now()->addMinute(), function () use ($activity) {
             $paths = Collection::make(self::storage()->allFiles("{$activity->year}/{$activity->title}"));
@@ -102,6 +113,14 @@ class Helper
                 ->contains(Str::lower(Str::afterLast($path, '.')))
             );
         });
+    }
+
+    /**
+     * Generate a cache key for the activity's documentation files.
+     */
+    private static function getDocumentationCacheKey(Activity $activity): string
+    {
+        return sprintf('activity_docs:%s:%s', $activity->year, $activity->slug);
     }
 
     /**
