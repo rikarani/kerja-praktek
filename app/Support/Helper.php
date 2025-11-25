@@ -84,6 +84,13 @@ class Helper
         return $videosPath->count();
     }
 
+    public static function extractID(string $url): ?string
+    {
+        preg_match('/\/d\/([^\/]+)/', $url, $m);
+
+        return $m[1] ?? null;
+    }
+
     private static function getPartitionedPaths(Activity $activity): Collection
     {
         $cacheKey = sprintf('activity_docs:%s:%s', $activity->year, $activity->slug);
