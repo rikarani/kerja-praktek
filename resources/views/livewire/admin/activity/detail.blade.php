@@ -65,10 +65,16 @@
                   href="{{ route('admin.activity.file.download', ['activity' => $activity, 'path' => $file['name']]) }}">
                   Download
                 </a>
-                <a class="block w-full px-3 py-2 text-left text-red-600 hover:bg-red-50"
-                  href="{{ route('admin.activity.file.delete', ['activity' => $activity, 'path' => $file['name']]) }}">
-                  Delete
-                </a>
+                <div>
+                  <form method="post"
+                    action="{{ route('admin.activity.file.delete', ['activity' => $activity, 'path' => $file['name']]) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="block w-full px-3 py-2 text-left text-red-600 hover:bg-red-50" type="submit">
+                      Hapus
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
