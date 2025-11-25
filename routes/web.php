@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
             Route::get('{activity}/preview', [ActivityController::class, 'preview'])->name('admin.activity.preview');
 
             Route::get('{activity}/file/{path}/download', [ActivityFileController::class, 'download'])->name('admin.activity.file.download');
-            Route::get('{activity}/file/{path}/delete', [ActivityFileController::class, 'delete'])->name('admin.activity.file.delete');
+            Route::delete('{activity}/file/{path}/delete', [ActivityFileController::class, 'delete'])->name('admin.activity.file.delete');
         });
 
         Route::view('/users', 'admin.user.index', ['title' => 'Manajemen User'])->name('user.index');
