@@ -2,13 +2,6 @@
 
 @php
   $explorer = Helper::getExplorer($activity);
-
-  function extractId(string $url)
-  {
-      preg_match('/\/d\/([^\/]+)/', $url, $m);
-
-      return $m[1] ?? null;
-  }
 @endphp
 
 <div>
@@ -43,7 +36,7 @@
     <div class="grid grid-cols-2 gap-4 sm:grid-cols-4" x-data="{ open: null }">
       @foreach ($explorer['files'] as $file)
         @php
-          $id = extractId($file['url']);
+          $id = Helper::extractID($file['url']);
           $thumb = $file['type'] === 'photo' ? $file['url'] : "https://drive.google.com/thumbnail?id={$id}";
         @endphp
 
