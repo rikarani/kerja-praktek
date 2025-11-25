@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -13,7 +14,7 @@ class ActivityFileController extends Controller
         return Storage::disk('google')->download("{$activity->year}/{$activity->title}/$path");
     }
 
-    public function delete(Activity $activity, string $path)
+    public function delete(Activity $activity, string $path): RedirectResponse
     {
         Storage::disk('google')->delete("{$activity->year}/{$activity->title}/$path");
 
