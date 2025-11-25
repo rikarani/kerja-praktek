@@ -13,38 +13,20 @@ use Illuminate\Contracts\Foundation\Application;
 
 class GoogleDriveServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap services.
-     */
     public function boot(): void
     {
-        Storage::extend('google', function (Application $app, array $config) {
-            $options = [];
-
-            if (! empty($config['teamDriveId'] ?? null)) {
-                $options['teamDriveId'] = $config['teamDriveId'];
-            }
-
-            if (! empty($config['sharedFolderId'] ?? null)) {
-                $options['sharedFolderId'] = $config['sharedFolderId'];
-            }
-
+        Storage::extend('google', function (Application $app, array $config): FilesystemAdapter {
             $client = new Client;
             $client->setClientId($config['clientId']);
             $client->setClientSecret($config['clientSecret']);
             $client->refreshToken($config['refreshToken']);
 
-            $service = new Drive($client);
-
-            $adapter = new GoogleDriveAdapter($service, $config['folder'] ?? '/', $options);
+            $adapter = new GoogleDriveAdapter(new Drive($client), $config['folder'] ?? '/');
 
             return new FilesystemAdapter(new Filesystem($adapter), $adapter);
         });
