@@ -41,19 +41,16 @@ class PerMonth extends Component
         $months = Collection::make(range(1, 12));
         $series = Collection::make([]);
 
+        $grouped = [];
+        foreach ($raw as $item) {
+            $grouped[$item->category][$item->month] = $item->total;
+        }
+
         foreach ($categories as $cat) {
             $series->push([
                 'name' => $cat,
-                'data' => $months->map(function ($m) use ($raw, $cat) {
-
-                    // CARI baris: month = M dan category = CAT
-                    $row = $raw->first(function ($item) use ($m, $cat) {
-                        return $item->month == $m && $item->category == $cat;
-                    });
-
-                    // kalau ada → total, kalau tidak → 0
-                    return $row?->total ?? 0;
-
+                'data' => $months->map(function ($m) use ($grouped, $cat) {
+                    return $grouped[$cat][$m] ?? 0;
                 })->toArray(),
             ]);
         }
