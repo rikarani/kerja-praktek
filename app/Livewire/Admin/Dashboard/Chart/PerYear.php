@@ -20,17 +20,17 @@ class PerYear extends Component
         $years = $raw->pluck('year')->unique()->sort()->values();
         $categories = $raw->pluck('category')->unique()->sort()->values();
 
-        $series = [];
+        $lookup = [];
+        foreach ($raw as $item) {
+            $lookup[$item->category][$item->year] = $item->total;
+        }
 
+        $series = [];
         foreach ($categories as $cat) {
             $series[] = [
                 'name' => $cat,
-                'data' => $years->map(function ($y) use ($raw, $cat) {
-                    $row = $raw->first(function ($item) use ($y, $cat) {
-                        return $item->year == $y && $item->category == $cat;
-                    });
-
-                    return $row?->total ?? 0;
+                'data' => $years->map(function ($y) use ($lookup, $cat) {
+                    return $lookup[$cat][$y] ?? 0;
                 })->toArray(),
             ];
         }
