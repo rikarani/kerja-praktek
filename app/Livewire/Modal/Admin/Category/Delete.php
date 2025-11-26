@@ -21,6 +21,8 @@ class Delete extends Component
 
     public function hapus(): void
     {
+        $this->authorize('delete', $this->category);
+
         $this->category?->delete();
 
         $this->dispatch('close-modal', modal: 'delete-category');

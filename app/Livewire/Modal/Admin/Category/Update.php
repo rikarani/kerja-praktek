@@ -25,8 +25,9 @@ class Update extends Component
 
     public function submit(): void
     {
-        $data = $this->validate();
+        $this->authorize('update', $this->category);
 
+        $data = $this->validate();
         $this->category->update($data);
 
         $this->dispatch('close-modal', modal: 'update-category');
