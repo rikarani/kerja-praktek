@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 
 class Update extends Component
 {
@@ -33,11 +34,12 @@ class Update extends Component
 
     public function submit(): void
     {
-        $data = $this->validate();
+        $this->authorize('update', $this->user);
 
+        $data = $this->validate();
         $this->user->update([
             ...$data,
-            'password' => Hash::make($data['password'] ?? 'password'),
+            'password' => Hash::make($data['password'] ?? Config::get('app.default_password')),
         ]);
 
         $this->dispatch('close-modal');
