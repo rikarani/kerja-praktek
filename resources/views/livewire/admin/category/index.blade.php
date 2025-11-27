@@ -70,9 +70,10 @@
                 <div class="flex items-center">
                   <div class="flex items-center gap-3">
                     <div>
-                      <p class="text-theme-sm font-medium text-gray-800 dark:text-white/90">
+                      <a class="text-theme-sm font-medium text-gray-800 dark:text-white/90"
+                        href="{{ route('activity.index', ['kategori' => $category->slug]) }}">
                         {{ $category->name }}
-                      </p>
+                      </a>
                     </div>
                   </div>
                 </div>
