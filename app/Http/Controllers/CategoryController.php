@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
-    public function __invoke(Request $request): View
+    public function __invoke(): View
     {
         Gate::authorize('view-any', Category::class);
 
