@@ -8,6 +8,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Config;
 
 class Create extends Component
 {
@@ -27,11 +28,12 @@ class Create extends Component
 
     public function submit(): void
     {
-        $data = $this->validate();
+        $this->authorize('create', User::class);
 
+        $data = $this->validate();
         User::create([
             ...$data,
-            'password' => Hash::make($data['password'] ?? 'password'),
+            'password' => Hash::make($data['password'] ?? Config::get('app.default_password')),
         ]);
 
         $this->dispatch('close-modal');

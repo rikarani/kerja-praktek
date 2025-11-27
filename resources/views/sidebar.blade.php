@@ -54,14 +54,6 @@
                 Daftar Kegiatan
               </span>
             </a>
-            {{--            <ul class="menu-dropdown mt-2 flex flex-col gap-1 pl-9"> --}}
-            {{--              <li> --}}
-            {{--                <a class="menu-dropdown-item {{ Route::is('category.index') ? 'menu-dropdown-item-active' : 'menu-dropdown-item-inactive' }} group" --}}
-            {{--                  href="{{ route('category.index') }}" :class="sidebarToggle ? 'lg:hidden' : 'flex'"> --}}
-            {{--                  Kategori Kegiatan --}}
-            {{--                </a> --}}
-            {{--              </li> --}}
-            {{--            </ul> --}}
           </li>
         </ul>
       </div>

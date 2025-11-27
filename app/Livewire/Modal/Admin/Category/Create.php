@@ -21,16 +21,13 @@ class Create extends Component
 
     public function submit(): void
     {
+        $this->authorize('create', Category::class);
+
         $data = $this->validate();
+        Category::create($data);
 
-        try {
-            Category::create($data);
-
-            $this->dispatch('close-modal');
-            $this->redirectRoute('category.index');
-        } catch (\Exception $exception) {
-            return;
-        }
+        $this->dispatch('close-modal');
+        $this->redirectRoute('category.index');
     }
 
     public function render(): View

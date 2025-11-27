@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Policies\CategoryPolicy;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 
+#[UsePolicy(CategoryPolicy::class)]
 class Category extends Model
 {
     use HasUuids, Sluggable;
