@@ -27,6 +27,7 @@
         }
 
         const options = {
+          series: data,
           chart: {
             type: "bar",
             height: 300,
@@ -38,7 +39,11 @@
           xaxis: {
             categories: years,
           },
-          series: data,
+          yaxis: {
+            labels: {
+              show: false
+            }
+          }
         };
 
         // kalau chart sudah ada, update aj
