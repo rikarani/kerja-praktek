@@ -54,11 +54,11 @@ class Update extends Component
     protected function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($this->user)],
             'email' => ['required', 'email:dns', Rule::unique('users', 'email')->ignore($this?->user)],
-            'role_id' => 'required|exists:roles,id',
-            'password' => 'nullable|string|min:8',
+            'role_id' => ['required', Rule::exists('roles', 'id')],
+            'password' => ['nullable', 'string', 'min:8'],
         ];
     }
 
