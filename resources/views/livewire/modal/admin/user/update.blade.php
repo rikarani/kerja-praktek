@@ -1,7 +1,7 @@
 <x-partial.modal name="update-user">
   <form wire:submit="submit">
     <h4 class="mb-6 text-lg font-medium text-gray-800 dark:text-white/90">
-      Tambah User Baru
+      Edit User
     </h4>
     <div class="flex flex-col gap-x-6 gap-y-5">
       <div>
