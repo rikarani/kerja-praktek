@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Livewire\Modal\Admin\User;
+namespace App\Livewire\Profile;
 
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
-use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class Update extends Component
+class Edit extends Component
 {
-    public ?User $user;
+    public ?User $user = null;
 
     public string $name = '';
 
@@ -24,19 +24,14 @@ class Update extends Component
 
     public ?string $password = null;
 
-    #[On('update-user')]
-    public function prepare(User $user): void
+    public function mount(): void
     {
-        $this->user = $user;
-        $this->fill($user);
-
-        $this->dispatch('open-modal', modal: 'update-user');
+        $this->user = Auth::user();
+        $this->fill(Auth::user());
     }
 
     public function submit(): void
     {
-        $this->authorize('update', $this->user);
-
         $data = $this->validate();
 
         if (empty($data['password'])) {
@@ -46,9 +41,7 @@ class Update extends Component
         }
 
         $this->user->update($data);
-
-        $this->dispatch('close-modal');
-        $this->redirectRoute('user.index');
+        $this->redirectRoute('profile.edit');
     }
 
     protected function rules(): array
@@ -56,7 +49,7 @@ class Update extends Component
         return [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($this->user)],
-            'email' => ['required', 'email:dns', Rule::unique('users', 'email')->ignore($this?->user)],
+            'email' => ['required', 'string', 'email:dns', Rule::unique('users', 'email')->ignore($this->user)],
             'role_id' => ['required', Rule::exists('roles', 'id')],
             'password' => ['nullable', 'string', 'min:8'],
         ];
@@ -64,7 +57,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.modal.admin.user.update')->with([
+        return view('livewire.profile.edit')->with([
             'roles' => Role::all(),
         ]);
     }

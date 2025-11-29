@@ -47,11 +47,11 @@ class Create extends Component
     protected function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')],
-            'email' => 'required|email:dns|unique:users,email',
-            'role_id' => 'required|exists:roles,id',
-            'password' => 'nullable|string|min:8',
+            'email' => ['required', 'email:dns', Rule::unique('users', 'email')],
+            'role_id' => ['required', Rule::exists('roles', 'id')],
+            'password' => ['nullable', 'string', 'min:8'],
         ];
     }
 
