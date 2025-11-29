@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
         User::create([
             'role_id' => Role::where('name', 'admin')->first()->id,
             'name' => 'Example Admin',
+            'username' => 'admin',
             'email' => fake()->unique()->freeEmail(),
             'password' => Hash::make(Config::get('app.default_password')),
         ]);
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
         User::create([
             'role_id' => Role::where('name', 'user')->first()->id,
             'name' => 'Example User 1',
+            'username' => 'ikanteri',
             'email' => fake()->unique()->freeEmail(),
             'password' => Hash::make(Config::get('app.default_password')),
         ]);

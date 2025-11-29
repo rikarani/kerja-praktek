@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Session;
 class Login extends Component
 {
     #[Validate(rule: 'required', message: 'wajib diisi')]
-    #[Validate(rule: 'email:dns', message: 'email tidak valid')]
-    public string $email = '';
+    public string $username = '';
 
     #[Validate(rule: 'required', message: 'wajib diisi')]
     public string $password = '';

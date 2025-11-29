@@ -45,7 +45,7 @@ class Activity extends Model
     #[Scope]
     protected function search(Builder $query, string $keyword): Builder
     {
-        return $query->whereLike('title', "%$keyword%");
+        return $query->when($keyword, fn (Builder $q) => $q->whereLike('title', "%{$keyword}%"));
     }
 
     #[Scope]
@@ -64,6 +64,35 @@ class Activity extends Model
     protected function year(Builder $query, ?string $tahun): Builder
     {
         return $query->when($tahun, fn (Builder $q) => $q->whereYear('start_date', $tahun));
+    }
+
+    #[Scope]
+    protected function filterByCategory(Builder $query, ?string $kategori): Builder
+    {
+        return $query->whereRelationEquals('category', 'slug', $kategori);
+    }
+
+    #[Scope]
+    protected function filterByAuthor(Builder $query, ?string $author): Builder
+    {
+        return $query->whereRelationEquals('author', 'name', $author);
+    }
+
+    #[Scope]
+    protected function whereRelationEquals(Builder $query, string $relation, string $column, mixed $value): Builder
+    {
+        return $query->when($value, fn ($q) => $q->whereHas($relation, fn ($r) => $r->where($column, $value)));
+    }
+
+    #[Scope]
+    protected function filters(Builder $query, array $filters): Builder
+    {
+        return $query->search($filters['search'] ?? null)
+            ->month($filters['month'] ?? null)
+            ->year($filters['year'] ?? null)
+            ->filterByCategory($filters['category'] ?? null)
+            ->filterByAuthor($filters['author'] ?? null)
+            ->when($filters['author_only'] ?? null, fn ($q, $authorId) => $q->where('author_id', $authorId));
     }
 
     protected function casts(): array

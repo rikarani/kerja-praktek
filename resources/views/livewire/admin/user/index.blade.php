@@ -50,6 +50,13 @@
             <th class="py-3">
               <div class="flex items-center">
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
+                  Email
+                </p>
+              </div>
+            </th>
+            <th class="py-3">
+              <div class="flex items-center">
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                   Role
                 </p>
               </div>
@@ -57,7 +64,7 @@
             <th class="py-3">
               <div class="flex items-center">
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
-                  Jumlah Kegiatan
+                  Jumlah Postingan
                 </p>
               </div>
             </th>
@@ -74,7 +81,7 @@
           @foreach ($users as $user)
             <tr wire:key="{{ $user->email }}">
               <td class="py-3">
-                <div class="flex items-center gap-3">
+                <a class="flex items-center gap-3" href="{{ route('activity.index', ['author' => $user->name]) }}">
                   <div class="h-10 w-10 overflow-hidden rounded-full">
                     <img src="{{ asset('images/user/user-17.jpg') }}" alt="brand" />
                   </div>
@@ -83,9 +90,16 @@
                       {{ $user->name }}
                     </span>
                     <span class="text-theme-xs block text-gray-500 dark:text-gray-400">
-                      {{ $user->email }}
+                      {{ $user->username }}
                     </span>
                   </div>
+                </a>
+              </td>
+              <td class="py-3">
+                <div class="flex items-center">
+                  <p class="text-theme-sm text-gray-500 dark:text-gray-400">
+                    {{ $user->email }}
+                  </p>
                 </div>
               </td>
               <td class="py-3">

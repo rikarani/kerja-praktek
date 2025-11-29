@@ -48,6 +48,7 @@
       }
 
       chartObject = new ApexCharts(el, {
+        series: series,
         chart: {
           type: "bar",
           height: 300,
@@ -59,7 +60,11 @@
         xaxis: {
           categories: months
         },
-        series: series,
+        yaxis: {
+          labels: {
+            show: false
+          }
+        }
       });
 
       chartObject.render();
