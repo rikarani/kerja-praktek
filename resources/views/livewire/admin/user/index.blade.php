@@ -50,6 +50,13 @@
             <th class="py-3">
               <div class="flex items-center">
                 <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
+                  Email
+                </p>
+              </div>
+            </th>
+            <th class="py-3">
+              <div class="flex items-center">
+                <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
                   Role
                 </p>
               </div>
@@ -83,10 +90,17 @@
                       {{ $user->name }}
                     </span>
                     <span class="text-theme-xs block text-gray-500 dark:text-gray-400">
-                      {{ $user->email }}
+                      {{ $user->username }}
                     </span>
                   </div>
                 </a>
+              </td>
+              <td class="py-3">
+                <div class="flex items-center">
+                  <p class="text-theme-sm text-gray-500 dark:text-gray-400">
+                    {{ $user->email }}
+                  </p>
+                </div>
               </td>
               <td class="py-3">
                 <div class="flex items-center">
