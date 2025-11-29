@@ -9,13 +9,14 @@ use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Config;
 
 class Update extends Component
 {
     public ?User $user;
 
     public string $name = '';
+
+    public string $username = '';
 
     public string $email = '';
 
@@ -37,10 +38,14 @@ class Update extends Component
         $this->authorize('update', $this->user);
 
         $data = $this->validate();
-        $this->user->update([
-            ...$data,
-            'password' => Hash::make($data['password'] ?? Config::get('app.default_password')),
-        ]);
+
+        if (empty($data['password'])) {
+            unset($data['password']);
+        } else {
+            $data['password'] = Hash::make($data['password']);
+        }
+
+        $this->user->update($data);
 
         $this->dispatch('close-modal');
         $this->redirectRoute('user.index');
@@ -50,6 +55,7 @@ class Update extends Component
     {
         return [
             'name' => 'required|string|max:255',
+            'username' => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($this->user)],
             'email' => ['required', 'email:dns', Rule::unique('users', 'email')->ignore($this?->user)],
             'role_id' => 'required|exists:roles,id',
             'password' => 'nullable|string|min:8',
