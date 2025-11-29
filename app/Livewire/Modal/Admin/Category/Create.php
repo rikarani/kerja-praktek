@@ -5,12 +5,11 @@ namespace App\Livewire\Modal\Admin\Category;
 use Livewire\Component;
 use App\Models\Category;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Validate;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 
 class Create extends Component
 {
-    #[Validate(rule: 'required', message: 'Wajib Diisi')]
     public string $name = '';
 
     #[On('create-category')]
@@ -24,10 +23,18 @@ class Create extends Component
         $this->authorize('create', Category::class);
 
         $data = $this->validate();
+
         Category::create($data);
 
         $this->dispatch('close-modal');
         $this->redirectRoute('category.index');
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', Rule::unique('categories', 'name')],
+        ];
     }
 
     public function render(): View
