@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Modal\Admin\Activity;
 
+use App\Support\Helper;
 use Livewire\Component;
 use App\Models\Activity;
-use App\Support\Helper;
 use Livewire\Attributes\On;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -23,10 +23,14 @@ class Delete extends Component
 
     public function hapus(): void
     {
+        $this->authorize('delete', $this->activity);
+
         Storage::disk('google')->deleteDirectory("{$this->activity?->year}/{$this->activity?->title}");
+
         if ($this->activity) {
             Helper::invalidateDocumentationCache($this->activity);
         }
+
         $this->activity?->delete();
 
         $this->dispatch('close-modal', modal: 'delete-activity');
