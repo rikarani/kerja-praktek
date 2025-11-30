@@ -56,6 +56,13 @@
           toolbar: {
             show: false
           },
+          events: {
+            dataPointSelection: (event, context, config) => {
+              const bulan = months[config.dataPointIndex];
+              const tahun = @js($selectedYear);
+              window.location.href = `/kegiatan?tahun=${tahun}&bulan=${bulan}`;
+            }
+          }
         },
         xaxis: {
           categories: months
