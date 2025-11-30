@@ -35,6 +35,11 @@
             toolbar: {
               show: false
             },
+            events: {
+              dataPointSelection: (event, context, config) => {
+                window.location.href = `/kegiatan?tahun=${years[config.dataPointIndex]}`;
+              }
+            }
           },
           xaxis: {
             categories: years,
@@ -46,7 +51,7 @@
           }
         };
 
-        // kalau chart sudah ada, update aj
+        // kalau chart sudah ada, tinggal update aja
         if (chartObject) {
           chartObject.updateOptions({
             xaxis: {
