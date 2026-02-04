@@ -1,5 +1,27 @@
 <x-partial.modal name="add-documentations">
-  <div class="add-documentation">
+  <div class="add-documentation space-y-4">
+    <div>
+      <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+        Pilih Folder
+      </label>
+      <div class="relative z-20 bg-transparent">
+        <select
+          class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 focus:ring-3 focus:outline-hidden h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+          wire:model="folder">
+          <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="">
+            Pilih Folder
+          </option>
+          @if (count($folders))
+            @foreach ($folders as $folder)
+              <option class="text-gray-700 dark:bg-gray-900 dark:text-gray-400" value="{{ $folder }}">
+                {{ $folder }}
+              </option>
+            @endforeach
+          @endif
+        </select>
+        <p class="text-theme-xs mt-1">alamak opsional</p>
+      </div>
+    </div>
     <x-filepond::upload required placeholder="png, jpg, jpeg dan mp4" wire:model="documentations" multiple allow-reorder
       allow-file-type-validation accepted-file-types="image/png,image/jpeg,image/jpg,video/mp4" />
   </div>

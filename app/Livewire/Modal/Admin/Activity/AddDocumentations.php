@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Modal\Admin\Activity;
 
+use App\Support\Helper;
 use Livewire\Component;
 use App\Models\Activity;
-use App\Support\Helper;
 use Livewire\Attributes\On;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
@@ -17,6 +17,8 @@ class AddDocumentations extends Component
     use WithFilePond, WithFileUploads;
 
     public ?Activity $activity = null;
+
+    public string $folder = '';
 
     public array $documentations = [];
 
@@ -37,6 +39,7 @@ class AddDocumentations extends Component
 
         foreach ($data['documentations'] as $documentation) {
             $this->uploadDocumentation($documentation);
+
         }
 
         Helper::invalidateDocumentationCache($this->activity);
@@ -47,12 +50,15 @@ class AddDocumentations extends Component
 
     public function render(): View
     {
-        return view('livewire.modal.admin.activity.add-documentations');
+        return view('livewire.modal.admin.activity.add-documentations')->with([
+            'folders' => Helper::getExplorer($this->activity)['folders'],
+        ]);
     }
 
     protected function rules(): array
     {
         return [
+            'folder' => ['nullable', 'string'],
             'documentations' => ['required', 'array'],
             'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4']),
         ];
@@ -60,6 +66,12 @@ class AddDocumentations extends Component
 
     private function uploadDocumentation(TemporaryUploadedFile $documentation): void
     {
-        $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
+        if (filled($this->folder)) {
+            $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->folder", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
+        } else {
+            $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
+
+        }
+
     }
 }
