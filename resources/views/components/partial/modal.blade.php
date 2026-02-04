@@ -4,7 +4,7 @@
   @close-modal.window="open = false;">
   <div class="modal z-99999 fixed inset-0 flex items-center justify-center overflow-y-auto p-5" x-show="open">
     <div class="modal-close-btn fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"></div>
-    <div class="relative w-full max-w-2xl rounded-3xl bg-white p-6 lg:p-10 dark:bg-gray-900"
+    <div class="max-h-150 relative w-full max-w-2xl overflow-y-scroll rounded-3xl bg-white p-6 lg:p-10 dark:bg-gray-900"
       @click.outside="open = false">
       @if ($showCloseButton)
         <button
