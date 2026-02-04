@@ -37,14 +37,13 @@ class Index extends Component
 
     public function render(): View
     {
-        $user = Auth::user();
         $filters = [
             'month' => $this->getMonth(),
             'year' => $this->year,
             'search' => $this->search,
             'category' => $this->kategori,
             'author' => $this->author,
-            'author_only' => $user->isAdmin() ? null : $user->id,
+            'author_only' => Auth::user()->isAdmin() ? null : Auth::id(),
         ];
 
         return view('livewire.admin.activity.index')->with([
