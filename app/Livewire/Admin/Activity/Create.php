@@ -88,7 +88,7 @@ class Create extends Component
         }
 
         Activity::create([
-            'author_id' => Auth::user()->id,
+            'author_id' => Auth::id(),
             'category_id' => $data['category_id'],
             'title' => $data['title'],
             'excerpt' => $data['excerpt'],
