@@ -94,8 +94,6 @@ class Helper
     /**
      * Invalidate the documentation cache for an activity.
      * Call this when files are added or removed.
-     *
-     * @param Activity $activity
      */
     public static function invalidateDocumentationCache(Activity $activity): void
     {
@@ -126,7 +124,7 @@ class Helper
     /**
      * Generate URL foto (Google Drive direct image).
      */
-    private static function getPhotoURL(string $path): string
+    public static function getPhotoURL(string $path): string
     {
         $url = self::storage()->url($path);
 
