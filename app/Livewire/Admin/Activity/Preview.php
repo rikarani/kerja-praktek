@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Activity;
 
+use App\Support\Helper;
 use Livewire\Component;
 use App\Models\Activity;
 use Illuminate\Contracts\View\View;
@@ -31,6 +32,11 @@ class Preview extends Component
 
     public function render(): View
     {
-        return view('livewire.admin.activity.preview');
+        [$photos, $videos] = Helper::getDocumentationLinks($this->activity);
+
+        return view('livewire.admin.activity.preview')->with([
+            'photos' => $photos,
+            'videos' => $videos,
+        ]);
     }
 }
