@@ -1,65 +1,90 @@
-<div>
-  <div class="relative mb-4 lg:mb-8">
-    <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
-      <svg class="size-4 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-      </svg>
+@use('App\Support\Helper')
+@use('Illuminate\Support\Collection')
+
+<div class="px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-wrap gap-2">
+        <button
+          class="{{ blank($category) ? 'bg-brand-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300' }} rounded-lg px-4 py-2 text-sm font-medium"
+          wire:click="$set('category', '')">
+          Semua
+        </button>
+        @foreach ($categories as $cat)
+          <button
+            class="{{ $category === $cat->slug ? 'bg-brand-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300' }} rounded-lg px-4 py-2 text-sm font-medium"
+            wire:click="$set('category', '{{ $cat->slug }}')">
+            {{ $cat->name }}
+          </button>
+        @endforeach
+      </div>
+      <div class="relative w-full sm:max-w-xs">
+        <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z" />
+          </svg>
+        </span>
+        <input
+          class="focus:border-brand-500 focus:ring-brand-500 w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-10 pr-4 text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+          type="text" wire:model.live="search" placeholder="Cari kegiatan">
+      </div>
     </div>
-    <input
-      class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-      type="text" wire:model.live="search" placeholder="Cari Kegiatan...">
+    <div>
+      @if ($activities->isEmpty())
+        <p class="py-20 text-center text-lg text-gray-500 dark:text-gray-400">
+          Tidak ada kegiatan
+        </p>
+      @else
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          @foreach ($activities as $activity)
+            @php
+              $files = Storage::disk('google')->allFiles("$activity->year/$activity->title");
+              $firstImage = Collection::make($files)->first();
+              $thumbnail = Helper::getPhotoURL($firstImage);
+            @endphp
+            <article
+              class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+              wire:key="{{ $activity->slug }}">
+              <a class="absolute inset-0 z-10" href="{{ route('activity.detail', $activity->slug) }}"
+                aria-label="{{ $activity->title }}">
+              </a>
+              <div class="overflow-hidden">
+                <img class="h-48 w-full object-cover transition group-hover:scale-[1.03]" src="{{ $thumbnail }}"
+                  alt="{{ $activity->title }}">
+              </div>
+              <div class="flex flex-col p-5">
+                <div class="mb-2 flex items-center justify-between text-xs text-gray-500">
+                  <span
+                    class="rounded-md bg-gray-100 px-2 py-1 font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
+                    {{ Str::ucfirst($activity->category->name) }}
+                  </span>
+                  <span>{{ $activity->start_date->format('d M Y') }}</span>
+                </div>
+                <h2 class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white">
+                  {{ $activity->title }}
+                </h2>
+                <p class="mb-4 line-clamp-3 text-sm text-gray-600 dark:text-gray-400">
+                  {{ $activity->excerpt }}
+                </p>
+                <div class="flex items-center justify-between border-t border-gray-100 pt-4 dark:border-gray-700">
+                  <div class="flex items-center gap-3">
+                    <img class="h-8 w-8 rounded-full object-cover"
+                      src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                      alt="{{ $activity->author->name }}">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {{ $activity->author->name }}
+                    </span>
+                  </div>
+                  <span class="text-brand-600 dark:text-brand-400 text-sm font-medium">
+                    Detail →
+                  </span>
+                </div>
+              </div>
+            </article>
+          @endforeach
+        </div>
+      @endif
+    </div>
   </div>
-  @if ($activities->isEmpty())
-    <p class="text-center text-2xl font-semibold">Tidak Ada Kegiatan</p>
-  @else
-    <div class="grid gap-8 lg:grid-cols-2">
-      @foreach ($activities as $activity)
-        <article class="rounded-lg border border-gray-200 bg-white p-6 shadow-md dark:border-gray-700 dark:bg-gray-800"
-          wire:key="{{ $activity->slug }}">
-          <div class="mb-5 flex items-center justify-between text-gray-500">
-            <span
-              class="bg-blue-light-100 text-blue-light-800 dark:bg-blue-light-200 dark:text-blue-light-800 flex items-center rounded px-2.5 py-0.5 text-xs font-medium">
-              <svg class="mr-2 size-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z">
-                </path>
-              </svg>
-              <span class="-mt-px">{{ Str::ucfirst($activity->category->name) }}</span>
-            </span>
-            <span class="text-sm">{{ $activity->start_date->diffForHumans() }}</span>
-          </div>
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            <a href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
-              {{ $activity->title }}
-            </a>
-          </h2>
-          <p class="mb-5 line-clamp-3 font-light text-gray-500 dark:text-gray-400">
-            {{ $activity->excerpt }}
-          </p>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-              <img class="h-7 w-7 rounded-full"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                alt="Jese Leos avatar" />
-              <span class="font-medium dark:text-white">
-                {{ $activity->author->name }}
-              </span>
-            </div>
-            <a class="text-primary-600 dark:text-primary-500 inline-flex items-center font-medium hover:underline"
-              href="{{ route('activity.detail', ['activity' => $activity->slug]) }}">
-              Lihat Selengkapnya
-              <svg class="ml-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clip-rule="evenodd">
-                </path>
-              </svg>
-            </a>
-          </div>
-        </article>
-      @endforeach
-    </div>
-  @endif
 </div>
