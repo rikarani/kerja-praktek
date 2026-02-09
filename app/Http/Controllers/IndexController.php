@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\Helper;
 use App\Models\Activity;
 use Illuminate\Contracts\View\View;
 
@@ -16,10 +17,13 @@ class IndexController extends Controller
     {
         abort_unless($activity->published, 404);
 
+        [$photos, $videos] = Helper::getDocumentationLinks($activity);
+
         return view('activity.detail', [
             'title' => "Kegiatan $activity->title",
             'activity' => $activity,
-            'others' => Activity::published()->get()->reject(fn (Activity $item) => $item->id === $activity->id)->shuffle()->take(4),
+            'photos' => $photos,
+            'videos' => $videos,
         ]);
     }
 }
