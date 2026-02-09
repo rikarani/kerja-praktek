@@ -163,6 +163,6 @@ if (document.getElementById("myCarousel")) {
       Dots,
     },
   ).init();
-
-  Fancybox.bind("[data-fancybox]", {});
 }
+
+Fancybox.bind("[data-fancybox]", {});
