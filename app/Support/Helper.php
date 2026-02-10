@@ -31,18 +31,17 @@ class Helper
     public static function getExplorer(Activity $activity, ?string $path = null): array
     {
         $basePath = "{$activity->year}/{$activity->title}";
-        $targetPath = $path ? "$basePath/$path" : $basePath;
+        $currentPath = $path ? trim($path, '/') : null;
+        $targetPath = $currentPath ? "$basePath/$currentPath" : $basePath;
 
-        // ambil folder
         $folders = collect(self::storage()->directories($targetPath))
-            ->map(fn ($dir) => Str::after($dir, "$targetPath/"))
+            ->map(fn ($dir) => basename($dir))
             ->values()
             ->all();
 
-        // ambil file
         $files = collect(self::storage()->files($targetPath))
             ->map(function ($file) {
-                $extension = Str::lower(Str::afterLast($file, '.'));
+                $extension = Str::lower(pathinfo($file, PATHINFO_EXTENSION));
 
                 return [
                     'name' => basename($file),
@@ -60,7 +59,7 @@ class Helper
         return [
             'folders' => $folders,
             'files' => $files,
-            'path' => $path,        // buat breadcrumb
+            'path' => $currentPath, // buat breadcrumb & navigasi
         ];
     }
 
