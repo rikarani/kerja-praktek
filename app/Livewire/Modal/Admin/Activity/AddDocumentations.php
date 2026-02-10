@@ -6,6 +6,7 @@ use App\Support\Helper;
 use Livewire\Component;
 use App\Models\Activity;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\WithFileUploads;
 use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rules\File;
@@ -21,6 +22,9 @@ class AddDocumentations extends Component
     public string $folder = '';
 
     public array $documentations = [];
+
+    #[Url]
+    public ?string $path = null;
 
     public function mount(Activity $activity): void
     {
@@ -39,19 +43,18 @@ class AddDocumentations extends Component
 
         foreach ($data['documentations'] as $documentation) {
             $this->uploadDocumentation($documentation);
-
         }
 
         Helper::invalidateDocumentationCache($this->activity);
 
         $this->dispatch('close-modal');
-        $this->redirectRoute('admin.activity.detail', ['activity' => $this->activity]);
+        $this->redirect("/kegiatan/{$this->activity->slug}/detail?path=$this->path");
     }
 
     public function render(): View
     {
         return view('livewire.modal.admin.activity.add-documentations')->with([
-            'folders' => Helper::getExplorer($this->activity)['folders'],
+            'folders' => Helper::getExplorer($this->activity, $this->path)['folders'],
         ]);
     }
 
@@ -66,12 +69,18 @@ class AddDocumentations extends Component
 
     private function uploadDocumentation(TemporaryUploadedFile $documentation): void
     {
-        if (filled($this->folder)) {
-            $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->folder", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
+        if (filled($this->path)) {
+            if (filled($this->folder)) {
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path/{$this->folder}", $documentation->getClientOriginalName(), 'google');
+            } else {
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path", $documentation->getClientOriginalName(), 'google');
+            }
         } else {
-            $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
-
+            if (filled($this->folder)) {
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/{$this->folder}", $documentation->getClientOriginalName(), 'google');
+            } else {
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", $documentation->getClientOriginalName(), 'google');
+            }
         }
-
     }
 }
