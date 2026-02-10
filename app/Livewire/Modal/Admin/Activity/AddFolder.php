@@ -5,6 +5,7 @@ namespace App\Livewire\Modal\Admin\Activity;
 use Livewire\Component;
 use App\Models\Activity;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,6 +14,9 @@ class AddFolder extends Component
     public ?Activity $activity = null;
 
     public string $title = '';
+
+    #[Url]
+    public ?string $path = null;
 
     public function mount(Activity $activity): void
     {
@@ -29,10 +33,17 @@ class AddFolder extends Component
     {
         $data = $this->validate();
 
-        Storage::disk('google')->makeDirectory("{$this->activity->year}/{$this->activity->title}/{$data['title']}");
+        if (filled($this->path)) {
+            Storage::disk('google')->makeDirectory("{$this->activity->year}/{$this->activity->title}/$this->path/{$data['title']}");
+
+            $this->redirect("/kegiatan/{$this->activity->slug}/detail?path=$this->path");
+        } else {
+            Storage::disk('google')->makeDirectory("{$this->activity->year}/{$this->activity->title}/{$data['title']}");
+
+            $this->redirectRoute('admin.activity.detail', ['activity' => $this->activity]);
+        }
 
         $this->dispatch('close-modal');
-        $this->redirectRoute('admin.activity.detail', ['activity' => $this->activity]);
     }
 
     protected function rules(): array
