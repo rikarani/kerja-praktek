@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ActivityFileController;
+use App\Http\Controllers\ActivityFolderController;
 
 Route::get('/', [IndexController::class, 'index']);
 
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('{activity}/detail', [ActivityController::class, 'detail'])->name('admin.activity.detail');
         Route::get('{activity}/preview', [ActivityController::class, 'preview'])->name('admin.activity.preview');
+
+        Route::delete('{activity}/folder/{path}/delete', [ActivityFolderController::class, 'delete'])->name('admin.activity.folder.delete');
 
         Route::get('{activity}/file/{path}/download', [ActivityFileController::class, 'download'])->name('admin.activity.file.download');
         Route::delete('{activity}/file/{path}/delete', [ActivityFileController::class, 'delete'])->name('admin.activity.file.delete');
