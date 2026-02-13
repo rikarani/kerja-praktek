@@ -11,9 +11,15 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body x-data="{ 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
-  $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" :class="{ 'dark bg-gray-900': darkMode === true }">
-    @yield('content')
+  <body class="flex min-h-screen flex-col bg-white" x-data="{ 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
+  $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{ 'dark bg-gray-900': darkMode === true }">
+
+    <main class="flex-1">
+      @yield('content')
+    </main>
+
+    @yield('footer')
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </body>
