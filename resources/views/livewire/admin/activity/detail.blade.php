@@ -25,7 +25,7 @@
             <div class="absolute right-0 z-30 mt-2 w-40 rounded-md border bg-white py-1 text-sm shadow" x-show="open"
               @click.outside="open = false" x-transition>
               <button class="block w-full px-3 py-2 text-left hover:bg-gray-100"
-                @click="$dispatch('rename-folder', { name: '{{ $folder }}' })">
+                @click="$dispatch('rename-folder', { activity: '{{ $activity->slug }}', old: '{{ $folder }}' })">
                 Rename
               </button>
               <form method="POST"
@@ -117,4 +117,5 @@
   </button>
   <livewire:modal.admin.activity.add-documentations :$activity />
   <livewire:modal.admin.activity.add-folder :$activity />
+  <livewire:modal.admin.activity.rename-folder />
 </div>
