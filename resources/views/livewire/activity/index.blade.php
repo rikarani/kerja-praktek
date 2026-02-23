@@ -4,7 +4,7 @@
 <div class="px-4 py-6 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-7xl">
     <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <div class="flex flex-wrap gap-2">
+      <div class="grid grid-cols-3 gap-2 lg:flex lg:flex-wrap">
         <button
           class="{{ blank($category) ? 'bg-brand-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300' }} rounded-lg px-4 py-2 text-sm font-medium"
           wire:click="$set('category', '')">
@@ -59,7 +59,7 @@
                     class="rounded-md bg-gray-100 px-2 py-1 font-medium text-gray-700 dark:bg-gray-700 dark:text-gray-200">
                     {{ Str::ucfirst($activity->category->name) }}
                   </span>
-                  <span>{{ $activity->start_date->format('d M Y') }}</span>
+                  <span>{{ $activity->start_date->translatedFormat('d F Y') }}</span>
                 </div>
                 <h2 class="mb-2 line-clamp-2 text-lg font-semibold text-gray-900 dark:text-white">
                   {{ $activity->title }}
