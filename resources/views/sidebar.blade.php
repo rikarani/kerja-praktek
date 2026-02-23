@@ -4,18 +4,21 @@
   <div class="sidebar-header flex items-center gap-2 pb-7 pt-8"
     :class="sidebarToggle ? 'justify-center' : 'justify-between'">
     <a href="/">
-      <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-        <img class="dark:hidden" src="{{ asset('images/logo/logo.svg') }}" alt="Logo" />
-        <img class="hidden dark:block" src="{{ asset('images/logo/logo-dark.svg') }}" alt="Logo" />
+      <span class="logo space-y-2" :class="sidebarToggle ? 'hidden' : ''">
+        <img class="mx-auto size-28 dark:hidden" src="{{ asset('images/logo untan.png') }}" alt="Logo" />
+        <div class="text-center">
+          <p class="text-theme-sm font-medium">Manajemen Dokumentasi Kegiatan</p>
+          <p class="text-theme-sm">Teknik Informatika</p>
+        </div>
       </span>
-      <img class="logo-icon" src="{{ asset('images/logo/logo-icon.svg') }}" alt="Logo"
+      <img class="logo-icon size-12" src="{{ asset('images/logo untan.png') }}" alt="Logo"
         :class="sidebarToggle ? 'lg:block' : 'hidden'" />
     </a>
   </div>
   <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
     <nav>
       <div>
-        <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
+        <h3 class="mb-4 text-xs uppercase leading-5 text-gray-400">
           <span class="menu-group-title" :class="sidebarToggle ? 'lg:hidden' : ''">
             General
           </span>
