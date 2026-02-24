@@ -1,61 +1,202 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Kerja Praktek
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Kerja Praktek dengan judul "**Rancang Bangun Aplikasi Manajemen Dokumentasi Kegiatan Dengan Layanan Google Drive API
+pada Jurusan Informatika**" ini dilakukan di Fakultas Teknik, Jurusan Informatika, Universitas Tanjungpura Pontianak.
+Kerja Praktek ini dilakukan selama 3 bulan, mulai dari tanggal 2 Februari 2026 hingga 30 Juni 2026.
 
-## About Laravel
+Masalah yang dihadapi adalah susahnya melakukan manajemen dokumentasi kegiatan di Teknik Informatika. Selama ini
+dokumentasi diupload ke google drive kemudian dibagikan di grup chat (misalnya whatsapp, telegram, dll) menggunakan link
+yang didapatkan dari google drivenya. Hal ini menimbulkan beberapa masalah, misalnya :
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Linknya tenggelam di grup chat karena banyaknya pesan yang masuk sehingga anggota grup chat sulit untuk menemukan
+   link dokumentasi kegiatan yang sudah diupload.
+2. Link yang dibagikan di grup chat seringkali tidak dapat diakses oleh anggota grup karena masalah izin akses pada
+   google drive.
+3. Sulitnya mencari dokumentasi kegiatan yang sudah diupload karena linknya tersebar di berbagai grup chat dan tidak
+   terorganisir dengan baik.
+4. Terkadang terjadi duplikasi dokumentasi kegiatan karena anggota grup chat tidak menyadari bahwa dokumentasi sudah
+   diupload sebelumnya.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Oleh karena itu, tujuan dari kerja praktek ini adalah untuk membuat sebuah aplikasi manajemen dokumentasi kegiatan yang
+dapat memudahkan jurusan informatika dalam mengelola dokumentasi kegiatan. Aplikasi ini akan menggunakan layanan Google
+Drive API untuk mengelola dokumentasi kegiatan yang diupload ke google drive. Dengan aplikasi ini, anggota jurusan
+informatika dapat dengan mudah mengupload, mengelola, dan mencari dokumentasi kegiatan yang sudah diupload tanpa harus
+khawatir tentang masalah izin akses atau duplikasi dokumentasi.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Fitur
 
-## Learning Laravel
+1. **Upload Dokumentasi Kegiatan** : Anggota jurusan informatika dapat mengupload dokumentasi kegiatan ke google drive
+   melalui aplikasi. Aplikasi ini menggunakan layanan Google Drive API untuk mengelola dokumentasi kegiatan yang
+   diupload ke google drive.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **Manajemen Dokumentasi Kegiatan** : Anggota jurusan informatika dapat mengelola dokumentasi kegiatan yang sudah
+   diupload ke google drive melalui aplikasi. Aplikasi menyediakan fitur untuk menghapus dokumentasi ataupun
+   menambahkan dokumentasi (kalau ternyata ada nambah ataupun lupa upload) ke kegiatan yang sudah diupload ke google
+   drive.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **Pencarian Dokumentasi Kegiatan** : Anggota jurusan informatika dapat mencari dokumentasi kegiatan yang sudah
+   diupload. Aplikasi menyediakan fitur untuk mencari dokumentasi kegiatan berdasarkan nama, tanggal, atau kategori
+   kegiatan.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **User Management** : Aplikasi ini akan menyediakan fitur untuk mengelola pengguna aplikasi. Fitur ini akan
+   memungkinkan admin aplikasi untuk menambahkan, mengedit, dan menghapus pengguna aplikasi.
 
-## Laravel Sponsors
+5. **Kategori Kegiatan** : Aplikasi menyediakan fitur untuk mengelompokkan dokumentasi kegiatan berdasarkan
+   kategori kegiatan. Fitur ini akan memudahkan dalam mencari dokumentasi kegiatan yang
+   sudah diupload ke google drive berdasarkan kategori kegiatan.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+6. **Statistik** : Aplikasi menyediakan fitur untuk menampilkan statistik dokumentasi kegiatan yang sudah diupload
+   ke google drive. Fitur ini akan menampilkan statistik jumlah dokumentasi kegiatan yang sudah diupload ke google drive
+   berdasarkan kategori kegiatan, bulan, dan tahun.
 
-### Premium Partners
+# Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+ini adalah beberapa teknologi yang digunakan dalam kerja praktek ini :
 
-## Contributing
+1. **Laravel** : Laravel adalah framework PHP yang digunakan untuk membangun aplikasi web. Laravel menyediakan
+   berbagai fitur yang memudahkan pengembangan aplikasi web, seperti routing, middleware, dan lain-lain.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Google Drive API** : Google Drive API adalah sebuah layanan yang disediakan oleh Google untuk mengelola file yang
+   disimpan di google drive. Google Drive API menyediakan berbagai fitur untuk mengelola file di google drive, seperti
+   upload, download, delete, dan lain-lain.
 
-## Code of Conduct
+3. **MySQL** : MySQL adalah sebuah _Relational Database Management System_ (RDBMS) yang digunakan untuk menyimpan data
+   aplikasi. MySQL menyediakan berbagai fitur untuk mengelola basis data, seperti query, indexing, dan lain-lain.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **TailwindCSS** : TailwindCSS adalah sebuah framework CSS yang digunakan untuk membangun tampilan aplikasi web.
+   TailwindCSS menyediakan berbagai kelas CSS yang memudahkan pengembangan tampilan aplikasi web, seperti flexbox, grid,
+   dan lain-lain.
 
-## Security Vulnerabilities
+5. **Livewire** : Livewire adalah sebuah library Laravel yang digunakan untuk membangun aplikasi web interaktif.
+   Livewire memungkinkan pengembang untuk membuat komponen interaktif tanpa harus menulis kode JavaScript secara
+   langsung.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Prerequisites
 
-## License
+> [!NOTE]
+> Instalasi PHP dan MySQL bisa dipersingkat dengan install XAMPP, tapi cek versi PHP dari XAMPP untuk memastikan
+> kompatibilitas dengan Laravel 12.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. **PHP** : Pastikan PHP sudah terinstall di komputer. Project ini pake Laravel 12 yang butuh PHP versi 8.2 atau yang
+   lebih baru.
+
+2. **MySQL** : Pastikan MySQL sudah terinstall di komputer Anda. Laravel membutuhkan MySQL untuk menyimpan data
+   aplikasi.
+
+3. **Composer** : _Dependency manager_ untuk PHP yang digunakan untuk mengelola dependensi aplikasi
+   Laravel.
+
+4. **Google Cloud Account** : Anda perlu memiliki akun Google Cloud untuk menggunakan Google Drive API. Pastikan Anda
+   sudah memiliki akun Google Cloud dan sudah membuat project di Google Cloud Console.
+
+5. **Google Drive API Credentials** : Anda perlu membuat kredensial untuk Google Drive API di Google Cloud Console.
+   Pastikan Anda sudah membuat kredensial untuk Google Drive API dan mendapatkan Client ID dan Client Secret yang
+   diperlukan untuk mengakses Google Drive API.
+
+6. **Node.js dan npm** : Node.js buat javascript runtime, sedaangkan npm (Node Package Manager) buat mengelola _package_
+   JavaScript yang dibutuhkan untuk frontend.
+
+7. **Git** : supaya tinggal clone aja projectnya
+
+8. **IDE atau Code Editor** : Ini bebas aja sih, boleh pake VSCode, PhpStorm, Sublime Text, atau bahkan Notepad++.
+
+9. **Browser** : ini yang paling penting.
+
+# Tahap Instalasi
+
+1. Clone repository ini ke komputer Anda menggunakan perintah berikut di terminal atau command prompt :
+   ```bash
+   git clone https://github.com/rikarani/kerja-praktek.git
+   ```
+
+2. Masuk ke direktori project yang sudah di-clone :
+   ```bash
+   cd kerja-praktek
+    ```
+
+3. Install dependensi laravel :
+   ```bash
+   composer install
+   ```
+
+4. Install dependensi frontend :
+    ```bash
+    npm install
+    ```
+
+5. copy file `.env.example` menjadi `.env` :
+    - kalo di windows pake command ini
+   ```bash
+   copy .env.example .env
+   ```
+
+    - kalo di linux atau macOS pake command ini
+    ```bash
+    cp .env.example .env
+    ```
+
+6. Generate APP_KEY untuk laravel :
+   ```bash
+   php artisan key:generate
+   ```
+
+7. Konfigurasi file `.env`
+    - Default password untuk user
+    ```env
+    APP_DEFAULT_PASSWORD=
+    ```
+    - Faker Locale
+    ```env
+    APP_FAKER_LOCALE=
+    ```
+    - Koneksi Database disesuaikan aja dengan komputer masing-masing
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=
+    DB_PORT=
+    DB_DATABASE=
+    DB_USERNAME=
+    DB_PASSWORD=
+   ```
+    - Google Drive API Credentials, cara dapatinnya bisa cek [di sini](#cara-dapatin-google-drive-api-credentials)
+   ```env
+   GOOGLE_DRIVE_CLIENT_ID=
+   GOOGLE_DRIVE_CLIENT_SECRET=
+   GOOGLE_DRIVE_REFRESH_TOKEN=
+   GOOGLE_DRIVE_FOLDER=
+   ```
+
+8. Jalankan migrasi sekalian ama seedernya :
+   ```bash
+   php artisan migrate --seed
+   ```
+
+9. Jalankan server laravel :
+    ```bash
+    php artisan serve
+    ```
+
+10. Jalankan server frontend :
+    ```bash
+    npm run dev
+    ```
+
+11. Buka browser dan akses aplikasi di `http://localhost:8000`
+
+# Cara Dapatin Google Drive API Credentials
+
+1. Buka [Google Cloud Console](https://console.cloud.google.com/).
+2. Buat project baru atau pilih project yang sudah ada.
+3. Aktifkan Google Drive API untuk project Anda.
+4. Buat kredensial untuk Google Drive API dengan memilih "Create Credentials" dan pilih "OAuth client ID".
+5. Pilih "Web application" sebagai jenis aplikasi.
+6. Tambahkan `http://localhost:8000` ke daftar "Authorized JavaScript origins".
+7. Tambahkan `http://localhost:8000/auth/google/callback` ke daftar "Authorized redirect URIs".
+8. Setelah kredensial dibuat, Anda akan mendapatkan Client ID dan Client Secret. Simpan informasi ini karena akan
+   digunakan untuk konfigurasi aplikasi.
+9. Untuk mendapatkan Refresh Token, Anda perlu melakukan proses otentikasi dengan Google Drive API menggunakan Client ID
+   dan Client Secret yang sudah Anda dapatkan. Anda bisa menggunakan tools seperti Postman atau membuat skrip sederhana
+   untuk melakukan otentikasi dan mendapatkan Refresh Token. Pastikan untuk menyimpan Refresh Token ini karena akan
+   digunakan untuk mengakses Google Drive API secara terus-menerus tanpa perlu otentikasi ulang.
+10. Setelah mendapatkan Client ID, Client Secret, dan Refresh Token, masukkan informasi ini ke dalam file `.env` sesuai
+    dengan format yang sudah dijelaskan di tahap instalasi.
