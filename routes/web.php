@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -9,6 +10,39 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ActivityFileController;
 use App\Http\Controllers\ActivityFolderController;
+
+// Route buat dapatin refresh token dari Google Drive API, jangan dihapus
+Route::get('/token', function () {
+    $clientID = config('filesystems.disks.google.clientId');
+
+    $url = 'https://accounts.google.com/o/oauth2/v2/auth?'.http_build_query([
+        'client_id' => $clientID,
+        'redirect_uri' => url('/auth/google/callback'),
+        'response_type' => 'code',
+        'access_type' => 'offline',
+        'prompt' => 'consent',
+        'scope' => 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file',
+    ]);
+
+    return redirect($url);
+});
+
+// Route buat dapatin refresh token dari Google Drive API, jangan dihapus
+Route::get('/auth/google/callback', function () {
+    $code = request('code');
+
+    $response = Http::asForm()->post('https://oauth2.googleapis.com/token', [
+        'code' => $code,
+        'client_id' => config('filesystems.disks.google.clientId'),
+        'client_secret' => config('filesystems.disks.google.clientSecret'),
+        'redirect_uri' => url('/auth/google/callback'),
+        'grant_type' => 'authorization_code',
+    ]);
+
+    $token = $response->json();
+
+    dd($token);
+});
 
 Route::get('/', [IndexController::class, 'index']);
 
