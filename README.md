@@ -167,8 +167,7 @@
 16. Di bagian "Authorized JavaScript origins", klik "Add URI" dan masukkan `http://localhost:8000`.
     ![Authorized JavaScript Origins](public/images/docs/step-17.png)
 
-17. Di bagian "Authorized redirect URIs", klik "Add URI" dan masukkan `http://localhost:8000/auth/google/callback`. Kalo
-    udah tinggal klik "Create" aja.
+17. Di bagian "Authorized redirect URIs", klik "Add URI" dan masukkan `http://localhost:8000/auth/google/callback`.
     ![Authorized Redirect URIs](public/images/docs/step-18.png)
 
 18. Kalo dah selesai, nanti akan muncul pop-up yang berisi Client ID dan Client Secret.
