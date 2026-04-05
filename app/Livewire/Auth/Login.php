@@ -28,7 +28,11 @@ class Login extends Component
         }
 
         Session::regenerate();
-        $this->redirectRoute('dashboard');
+        if (Auth::user()->role->slug === 'admin') {
+            $this->redirectRoute('category.index');
+        } else {
+            $this->redirectRoute('dashboard');
+        }
     }
 
     public function render(): View
