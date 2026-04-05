@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 
         // Default Regular Users
         User::create([
-            'role_id' => Role::where('name', 'User')->first()->id,
+            'role_id' => Role::where('name', 'Operator')->first()->id,
             'name' => 'Example User 1',
             'username' => 'ikanteri',
             'email' => fake()->unique()->freeEmail(),
