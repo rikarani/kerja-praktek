@@ -51,23 +51,25 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+    Route::middleware('role:operator')->group(function () {
+        Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+
+        Route::prefix('kegiatan')->group(function () {
+            Route::view('/', 'admin.activity.index')->name('activity.index');
+            Route::view('/tambah', 'admin.activity.create')->name('activity.create');
+            Route::get('/{activity}', [IndexController::class, 'detail'])->name('activity.detail')->withoutMiddleware(['auth']);
+
+            Route::get('{activity}/detail', [ActivityController::class, 'detail'])->name('admin.activity.detail');
+            Route::get('{activity}/preview', [ActivityController::class, 'preview'])->name('admin.activity.preview');
+
+            Route::delete('{activity}/folder/{path}/delete', [ActivityFolderController::class, 'delete'])->name('admin.activity.folder.delete');
+
+            Route::get('{activity}/file/{path}/download', [ActivityFileController::class, 'download'])->name('admin.activity.file.download');
+            Route::delete('{activity}/file/{path}/delete', [ActivityFileController::class, 'delete'])->name('admin.activity.file.delete');
+        });
+    });
 
     Route::get('/edit-profile', ProfileController::class)->name('profile.edit');
-
-    Route::prefix('kegiatan')->group(function () {
-        Route::view('/', 'admin.activity.index')->name('activity.index');
-        Route::view('/tambah', 'admin.activity.create')->name('activity.create');
-        Route::get('/{activity}', [IndexController::class, 'detail'])->name('activity.detail')->withoutMiddleware(['auth']);
-
-        Route::get('{activity}/detail', [ActivityController::class, 'detail'])->name('admin.activity.detail');
-        Route::get('{activity}/preview', [ActivityController::class, 'preview'])->name('admin.activity.preview');
-
-        Route::delete('{activity}/folder/{path}/delete', [ActivityFolderController::class, 'delete'])->name('admin.activity.folder.delete');
-
-        Route::get('{activity}/file/{path}/download', [ActivityFileController::class, 'download'])->name('admin.activity.file.download');
-        Route::delete('{activity}/file/{path}/delete', [ActivityFileController::class, 'delete'])->name('admin.activity.file.delete');
-    });
 
     Route::prefix('admin')->group(function () {
         Route::get('/manage-kategori', CategoryController::class)->name('category.index');
