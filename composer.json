@@ -16,6 +16,7 @@
     "laravel/tinker": "^2.10.1",
     "livewire/livewire": "^3.6",
     "masbug/flysystem-google-drive-ext": "^2.4",
+    "masmerise/livewire-toaster": "^2.10",
     "spatie/livewire-filepond": "^1.5"
   },
   "require-dev": {
