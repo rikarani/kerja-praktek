@@ -7,6 +7,8 @@ use App\Models\Category;
 use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class Create extends Component
 {
@@ -18,7 +20,7 @@ class Create extends Component
         $this->dispatch('open-modal', modal: 'create-category');
     }
 
-    public function submit(): void
+    public function submit(): RedirectResponse
     {
         $this->authorize('create', Category::class);
 
@@ -27,7 +29,8 @@ class Create extends Component
         Category::create($data);
 
         $this->dispatch('close-modal');
-        $this->redirectRoute('category.index');
+
+        return Redirect::route('category.index')->success('Kategori berhasil ditambahkan');
     }
 
     protected function rules(): array
