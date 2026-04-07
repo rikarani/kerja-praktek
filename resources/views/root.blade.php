@@ -21,6 +21,7 @@
 
     @yield('footer')
 
+    <x-toaster-hub />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   </body>
 </html>
