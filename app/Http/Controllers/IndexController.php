@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function index(): View
     {
-        return view('activity.index');
+        return view('berita.index');
     }
 
     public function detail(Activity $activity): View
@@ -19,7 +19,7 @@ class IndexController extends Controller
 
         [$photos, $videos] = Helper::getDocumentationLinks($activity);
 
-        return view('activity.detail', [
+        return view('berita.detail', [
             'title' => "Kegiatan $activity->title",
             'activity' => $activity,
             'photos' => $photos,
