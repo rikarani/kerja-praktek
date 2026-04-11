@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ActivityFolderController extends Controller
 {
-    public function delete(Request $request, Activity $activity, string $path): RedirectResponse
+    public function __invoke(Request $request, Activity $activity, string $path): RedirectResponse
     {
         if ($request->has('path')) {
             $fullPath = $request->query('path');
@@ -19,6 +19,6 @@ class ActivityFolderController extends Controller
             Storage::disk('google')->deleteDirectory("{$activity->year}/{$activity->title}/$path");
         }
 
-        return to_route('admin.activity.detail', ['activity' => $activity->slug]);
+        return to_route('activity.drive', ['activity' => $activity->slug]);
     }
 }

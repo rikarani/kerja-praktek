@@ -11,17 +11,18 @@ class ActivityPolicy
 {
     use HandlesAuthorization;
 
-    public function view(User $user, Activity $activity): bool
+    public function view(User $user, Activity $activity): Response
     {
-        return $user->isAdmin() || $activity->author_id === $user->id;
+        return $activity->author_id === $user->id ? $this->allow() : $this->deny('Tidak dapat melihat kegiatan yang bukan milik Anda');
+    }
+
+    public function update(User $user, Activity $activity): Response
+    {
+        return $activity->author_id === $user->id ? $this->allow() : $this->deny('Tidak dapat mengedit kegiatan yang bukan milik Anda');
     }
 
     public function delete(User $user, Activity $activity): Response
     {
-        if ($user->isAdmin() || $activity->author_id === $user->id) {
-            return $this->allow();
-        }
-
-        return $this->deny('You do not have permission to delete this activity');
+        return $activity->author_id === $user->id ? $this->allow() : $this->deny('Tidak dapat menghapus kegiatan yang bukan milik Anda');
     }
 }

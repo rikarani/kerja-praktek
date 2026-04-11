@@ -12,7 +12,7 @@ class CategoryController extends Controller
     {
         Gate::authorize('view-any', Category::class);
 
-        return view('admin.category.index', [
+        return view('category.index', [
             'title' => 'Manajemen Kategori',
         ]);
     }

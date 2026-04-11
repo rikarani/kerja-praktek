@@ -23,7 +23,12 @@
       </div>
       <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
         <div class="z-1 flex items-center justify-center">
-          @include('partials.common-grid-shape')
+          <div class="-z-1 absolute right-0 top-0 w-full max-w-[250px] xl:max-w-[450px]">
+            <img src="{{ asset('images/shape/grid-01.svg') }}" alt="grid" />
+          </div>
+          <div class="-z-1 absolute bottom-0 left-0 w-full max-w-[250px] rotate-180 xl:max-w-[450px]">
+            <img src="{{ asset('images/shape/grid-01.svg') }}" alt="grid" />
+          </div>
           <div class="flex max-w-xs flex-col items-center">
             <img src="{{ asset('images/logo untan.png') }}" alt="Logo" />
           </div>

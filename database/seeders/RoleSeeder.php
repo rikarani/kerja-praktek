@@ -10,6 +10,6 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        Collection::make(['Admin', 'User'])->each(fn (string $role) => Role::create(['name' => $role]));
+        Collection::make(['Admin', 'Operator'])->each(fn (string $role) => Role::create(['name' => $role]));
     }
 }

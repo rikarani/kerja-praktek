@@ -20,6 +20,6 @@ class ActivityFileController extends Controller
         Storage::disk('google')->delete("{$activity->year}/{$activity->title}/$path");
         Helper::invalidateDocumentationCache($activity);
 
-        return to_route('admin.activity.detail', ['activity' => $activity]);
+        return to_route('activity.drive', ['activity' => $activity]);
     }
 }

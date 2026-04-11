@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Livewire\Modal\Category;
+
+use Livewire\Component;
+use App\Models\Category;
+use Livewire\Attributes\On;
+use Masmerise\Toaster\Toaster;
+use Illuminate\Contracts\View\View;
+
+class Delete extends Component
+{
+    public ?Category $category = null;
+
+    #[On('delete-category')]
+    public function prepare(Category $category): void
+    {
+        $this->category = $category;
+
+        $this->dispatch('open-modal', modal: 'delete-category');
+    }
+
+    public function hapus(): void
+    {
+        $this->authorize('delete', $this->category);
+
+        $this->category?->delete();
+
+        Toaster::success('Kategori berhasil dihapus');
+        $this->dispatch('close-modal', modal: 'delete-category');
+        $this->redirectRoute('category.index');
+    }
+
+    public function render(): View
+    {
+        return view('livewire.modal.category.delete');
+    }
+}
