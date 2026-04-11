@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Activity;
 use App\Models\Category;
 use Illuminate\Support\Carbon;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -63,6 +64,7 @@ class Edit extends Component
             'start_date' => Carbon::parseFromLocale($data['start_date'], 'id'),
         ]);
 
+        Toaster::success('Kegiatan berhasil diperbarui');
         $this->redirectRoute('activity.index');
     }
 
