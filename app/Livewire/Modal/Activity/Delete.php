@@ -6,6 +6,7 @@ use App\Support\Helper;
 use Livewire\Component;
 use App\Models\Activity;
 use Livewire\Attributes\On;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,8 +32,9 @@ class Delete extends Component
             Helper::invalidateDocumentationCache($this->activity);
         }
 
-        $this->activity?->delete();
+        $this->activity->delete();
 
+        Toaster::success('Kegiatan berhasil dihapus');
         $this->dispatch('close-modal', modal: 'delete-activity');
         $this->redirectRoute('activity.index');
     }
