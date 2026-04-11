@@ -1,4 +1,4 @@
-<x-partial.modal name="delete-user">
+<x-modal name="delete-user">
   <div class="text-center">
     <div class="z-1 relative mb-7 flex items-center justify-center">
       <svg class="fill-error-50 dark:fill-error-500/15" width="90" height="90" viewBox="0 0 90 90" fill="none"
@@ -42,4 +42,4 @@
       </button>
     </div>
   </div>
-</x-partial.modal>
+</x-modal>

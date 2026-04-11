@@ -1,4 +1,4 @@
-<x-partial.modal name="rename-folder">
+<x-modal name="rename-folder">
   <form wire:submit="rename">
     <div class="mb-4 flex-1">
       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" for="title"
@@ -48,4 +48,4 @@
       </button>
     </div>
   </form>
-</x-partial.modal>
+</x-modal>

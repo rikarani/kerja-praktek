@@ -105,6 +105,6 @@
         </div>
       </article>
     </div>
-    <x-partial.footer />
+    <x-footer />
   </main>
 @endsection

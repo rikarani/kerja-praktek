@@ -1,4 +1,4 @@
-<x-partial.modal name="add-documentations">
+<x-modal name="add-documentations">
   <div class="add-documentation space-y-4">
     @if (count($folders))
       <div>
@@ -56,4 +56,4 @@
     </button>
   </div>
   @filepondScripts
-</x-partial.modal>
+</x-modal>

@@ -1,4 +1,4 @@
-<x-partial.modal name="create-user">
+<x-modal name="create-user">
   <form wire:submit="submit">
     <h4 class="mb-6 text-lg font-medium text-gray-800 dark:text-white/90">
       Tambah User Baru
@@ -133,4 +133,4 @@
       </button>
     </div>
   </form>
-</x-partial.modal>
+</x-modal>

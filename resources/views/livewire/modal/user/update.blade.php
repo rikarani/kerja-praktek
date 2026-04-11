@@ -1,4 +1,4 @@
-<x-partial.modal name="update-user">
+<x-modal name="update-user">
   <form wire:submit="submit">
     <h4 class="mb-6 text-lg font-medium text-gray-800 dark:text-white/90">
       Edit User
@@ -133,4 +133,4 @@
       </button>
     </div>
   </form>
-</x-partial.modal>
+</x-modal>

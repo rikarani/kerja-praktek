@@ -1,4 +1,4 @@
-<x-partial.modal name="update-category">
+<x-modal name="update-category">
   <form wire:submit="submit">
     <h4 class="mb-6 text-lg font-medium text-gray-800 dark:text-white/90">
       Edit Kategori
@@ -45,4 +45,4 @@
       </button>
     </div>
   </form>
-</x-partial.modal>
+</x-modal>

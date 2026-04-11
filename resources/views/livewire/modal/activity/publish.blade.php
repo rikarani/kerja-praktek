@@ -1,4 +1,4 @@
-<x-partial.modal name="publish-activity">
+<x-modal name="publish-activity">
   <div class="text-center">
     <div class="z-1 relative mb-7 flex items-center justify-center">
       <svg class="fill-blue-light-50 dark:fill-blue-light-500/15" width="90" height="90" viewBox="0 0 90 90"
@@ -45,4 +45,4 @@
       </button>
     </div>
   </div>
-</x-partial.modal>
+</x-modal>

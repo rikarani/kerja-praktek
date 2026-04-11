@@ -35,5 +35,5 @@
 @endsection
 
 @section('footer')
-  <x-partial.footer />
+  <x-footer />
 @endsection
