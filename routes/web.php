@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
             Route::view('/', 'activity.index')->name('activity.index');
             Route::view('/tambah', 'activity.create')->name('activity.create');
 
-            Route::get('/{activity}', [IndexController::class, 'detail'])->name('activity.detail')->withoutMiddleware(['auth']);
+            Route::get('/{activity}', [IndexController::class, 'detail'])->name('activity.detail')->withoutMiddleware(['auth', 'role:operator']);
             Route::get('/{activity}/edit', [ActivityController::class, 'edit'])->name('activity.edit');
             Route::get('{activity}/drive', [ActivityController::class, 'drive'])->name('activity.drive');
             Route::get('{activity}/preview', [ActivityController::class, 'preview'])->name('activity.preview');
