@@ -12,7 +12,7 @@ class UserController extends Controller
     {
         Gate::authorize('view-any', User::class);
 
-        return view('admin.user.index', [
+        return view('user.index', [
             'title' => 'Manajemen User',
         ]);
     }
