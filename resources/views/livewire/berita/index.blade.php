@@ -84,6 +84,11 @@
             </article>
           @endforeach
         </div>
+        @if ($activities->hasPages())
+          <div class="mt-4">
+            {{ $activities->links() }}
+          </div>
+        @endif
       @endif
     </div>
   </div>
