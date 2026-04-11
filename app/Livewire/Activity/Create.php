@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Carbon;
+use Masmerise\Toaster\Toaster;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -98,6 +99,7 @@ class Create extends Component
             'start_date' => Carbon::parseFromLocale($data['start_date'], 'id'),
         ]);
 
+        Toaster::success('Kegiatan berhasil ditambahkan');
         $this->redirectRoute('activity.index');
     }
 
