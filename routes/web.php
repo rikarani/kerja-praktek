@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ActivityFileController;
@@ -51,7 +50,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/edit-profile', ProfileController::class)->name('profile.edit');
+    Route::view('/edit-profile', 'profile.edit')->name('profile.edit');
 
     Route::middleware('role:operator')->group(function () {
         Route::view('/dashboard', 'dashboard')->name('dashboard');

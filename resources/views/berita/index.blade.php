@@ -28,7 +28,7 @@
         Program Studi Informatika Universitas Tanjungpura
       </p>
     </div>
-    <div class="mx-auto max-w-7xl px-4 pb-16 lg:px-6">
+    <div class="mx-auto max-w-7xl px-4 lg:px-6">
       <livewire:berita.index />
     </div>
   </section>

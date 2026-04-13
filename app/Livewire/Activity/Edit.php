@@ -35,7 +35,7 @@ class Edit extends Component
 
         $this->fill([
             'originalTitle' => $activity->title,
-            'originalYear' => $this->getYearFromDate($activity->start_date),
+            'originalYear' => $activity->year,
             'title' => $activity->title,
             'category_id' => $activity->category_id,
             'start_date' => $activity->start_date->translatedFormat('d F Y'),

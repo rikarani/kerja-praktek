@@ -20,6 +20,8 @@ class ActivityController extends Controller
 
     public function edit(Activity $activity): View
     {
+        Gate::authorize('update', $activity);
+
         return view('activity.edit', [
             'title' => "Edit Kegiatan $activity->title",
             'activity' => $activity,
