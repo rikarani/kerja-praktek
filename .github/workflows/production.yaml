@@ -20,7 +20,7 @@ jobs:
             cd ${{ secrets.SSH_DIR }}
             php artisan optimize:clear
             git pull origin main
-            composer2 update --no-dev --optimize-autoloader
+            composer2 install --no-dev --optimize-autoloader
             bun install
             bun run build
             php artisan optimize
