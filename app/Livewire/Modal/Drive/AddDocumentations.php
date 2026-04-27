@@ -23,7 +23,7 @@ class AddDocumentations extends Component
 
     public array $documentations = [];
 
-    #[Url]
+    #[Url(except: '')]
     public ?string $path = null;
 
     public function mount(Activity $activity): void
@@ -48,7 +48,7 @@ class AddDocumentations extends Component
         Helper::invalidateDocumentationCache($this->activity);
 
         $this->dispatch('close-modal');
-        $this->redirect("/kegiatan/{$this->activity->slug}/detail?path=$this->path");
+        $this->redirect("/kegiatan/{$this->activity->slug}/drive?path=$this->path");
     }
 
     public function render(): View
@@ -63,7 +63,7 @@ class AddDocumentations extends Component
         return [
             'folder' => ['nullable', 'string'],
             'documentations' => ['required', 'array'],
-            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4']),
+            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4', 'pdf']),
         ];
     }
 
