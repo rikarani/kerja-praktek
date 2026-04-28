@@ -155,7 +155,7 @@
            wire:target="saveAsDraft, saveAndPublish">
       Daftar Hadir Kegiatan (jika ada)
     </label>
-    <x-filepond::upload required placeholder="png, jpg, jpeg, pdf" wire:model="absensi" multiple
+    <x-filepond::upload placeholder="png, jpg, jpeg, pdf" wire:model="absensi" multiple
                         allow-reorder allow-file-type-validation
                         accepted-file-types="image/png,image/jpeg,image/jpg,application/pdf" />
     @error('absensi')
@@ -165,7 +165,7 @@
     @enderror
     @if ($errors->has('absensi'))
       <ul class="mt-2 space-y-1">
-        @foreach ($errors->get('absensi') as $messages)
+        @foreach ($errors->get('absensi.*') as $messages)
           @foreach ($messages as $message)
             <li class="flex items-center gap-1 text-xs text-red-600">
               <svg class="size-3 shrink-0" fill="none" stroke="currentColor" stroke-width="2"

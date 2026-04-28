@@ -31,7 +31,7 @@ class Create extends Component
 
     public array $documentations = [];
 
-    public ?TemporaryUploadedFile $absensi = null;
+    public array $absensi = [];
 
     public function mount(): void
     {
@@ -78,8 +78,9 @@ class Create extends Component
             'description.required' => 'Deskripsi harus diisi',
             'description.string' => 'Deskripsi harus berupa teks',
             'description.max' => 'Deskripsi tidak boleh lebih dari 10000 karakter',
-            'documentations.required' => 'upload la dokumentasi ni',
+            'documentations.required' => 'Minimal satu dokumentasi',
             'documentations.*.mimes' => 'format yang dibolehkan: :values',
+            'absensi.*.mimes' => 'format yang dibolehkan: :values',
         ];
     }
 
@@ -92,8 +93,10 @@ class Create extends Component
             $this->uploadDocumentation($documentation, $year);
         }
 
-        if ($data['absensi']) {
-            $this->absensi->storeAs("$year/$this->title", "Daftar Hadir Kegiatan.{$this->absensi->getClientOriginalExtension()}", 'google');
+        if (! empty($data['absensi'])) {
+            foreach ($data['absensi'] as $absensi) {
+                $this->uploadAbsensi($absensi, $year);
+            }
         }
 
         Activity::create([
@@ -114,6 +117,11 @@ class Create extends Component
     private function uploadDocumentation(TemporaryUploadedFile $documentation, int $year): void
     {
         $documentation->storeAs("$year/$this->title/dokumentasi", "$this->title - {$documentation->getClientOriginalName()}", 'google');
+    }
+
+    private function uploadAbsensi(TemporaryUploadedFile $absensi, int $year): void
+    {
+        $absensi->storeAs("$year/$this->title", "Daftar Hadir Kegiatan.{$absensi->getClientOriginalExtension()}", 'google');
     }
 
     private function getYearFromDate(string $date): int
