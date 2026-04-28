@@ -24,11 +24,11 @@
     <div>
       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400" wire:loading.class="opacity-50"
              wire:target="addDocumentation">
-        Dokumentasi Kegiatan <span class="text-red-500">*</span>
+        Tambah Dokumentasi Kegiatan <span class="text-red-500">*</span>
       </label>
-      <x-filepond::upload required placeholder="png, jpg, jpeg, mp4, pdf" wire:model="documentations" multiple
+      <x-filepond::upload required placeholder="png, jpg, jpeg, mp4" wire:model="documentations" multiple
                           allow-reorder allow-file-type-validation
-                          accepted-file-types="image/png,image/jpeg,image/jpg,video/mp4,application/pdf" />
+                          accepted-file-types="image/png,image/jpeg,image/jpg,video/mp4" />
     </div>
   </div>
   <div class="flex w-full justify-end">
