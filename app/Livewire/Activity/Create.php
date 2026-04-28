@@ -90,8 +90,6 @@ class Create extends Component
         $data = $this->validate();
         $year = $this->getYearFromDate($data['start_date']);
 
-        dd($data);
-
         foreach ($data['documentations'] as $documentation) {
             $this->uploadDocumentation($documentation, $year);
         }
