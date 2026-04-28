@@ -18,6 +18,7 @@ class IndexController extends Controller
 
         return view('berita.detail', [
             'activity' => $activity,
+            'title' => $activity->title,
         ]);
     }
 }
