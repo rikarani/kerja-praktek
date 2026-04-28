@@ -10,9 +10,9 @@
     <div class="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
       @foreach ($explorer['folders'] as $folder)
         <div
-          class="group relative flex items-center justify-between rounded-lg border bg-white px-4 py-3 transition hover:bg-gray-50">
+            class="group relative flex items-center justify-between rounded-lg border bg-white px-4 py-3 transition hover:bg-gray-50">
           <a class="flex max-w-max items-center gap-3"
-            href="?path={{ urlencode($explorer['path'] ? $explorer['path'] . '/' . $folder : $folder) }}">
+             href="?path={{ urlencode($explorer['path'] ? $explorer['path'] . '/' . $folder : $folder) }}">
             <span class="icon-[tabler--folder] size-6"></span>
             <span class="truncate text-sm font-medium text-gray-800">
               {{ $folder }}
@@ -23,13 +23,13 @@
               <span class="icon-[tabler--dots-vertical] size-5"></span>
             </button>
             <div class="absolute right-0 z-30 mt-2 w-40 rounded-md border bg-white py-1 text-sm shadow" x-show="open"
-              @click.outside="open = false" x-transition>
+                 @click.outside="open = false" x-transition>
               <button class="block w-full px-3 py-2 text-left hover:bg-gray-100"
-                @click="$dispatch('rename-folder', { activity: '{{ $activity->slug }}', old: '{{ $folder }}' })">
+                      @click="$dispatch('rename-folder', { activity: '{{ $activity->slug }}', old: '{{ $folder }}' })">
                 Rename
               </button>
               <form method="POST"
-                action="{{ url("/kegiatan/$activity->slug/folder/$folder/delete?path=$folderFullPath") }}">
+                    action="{{ url("/kegiatan/$activity->slug/folder/$folder/delete?path=$folderFullPath") }}">
                 @csrf
                 @method('DELETE')
                 <button class="block w-full px-3 py-2 text-left text-red-600 hover:bg-red-50" type="submit">
@@ -68,22 +68,22 @@
             </div>
             <div class="relative ml-2">
               <button class="rounded-md p-1 transition hover:bg-gray-200"
-                @click.stop="open = (open === '{{ $file['name'] }}' ? null : '{{ $file['name'] }}')">
+                      @click.stop="open = (open === '{{ $file['name'] }}' ? null : '{{ $file['name'] }}')">
                 ⋮
               </button>
               <div class="absolute right-0 z-20 mt-1 w-40 rounded-lg border bg-white py-1 text-sm shadow-lg"
-                style="display: none;" x-show="open === '{{ $file['name'] }}'" x-transition
-                @click.outside="open = null">
+                   style="display: none;" x-show="open === '{{ $file['name'] }}'" x-transition
+                   @click.outside="open = null">
                 <a class="block px-3 py-2 hover:bg-gray-100" href="{{ $file['url'] }}" target="_blank">
                   Preview
                 </a>
                 <a class="block px-3 py-2 hover:bg-gray-100"
-                  href="{{ route('activity.file.download', ['activity' => $activity, 'path' => $file['name']]) }}">
+                   href="{{ route('activity.file.download', ['activity' => $activity, 'path' => $file['name']]) }}">
                   Download
                 </a>
                 <div>
                   <form method="post"
-                    action="{{ route('activity.file.delete', ['activity' => $activity, 'path' => $file['name']]) }}">
+                        action="{{ route('activity.file.delete', ['activity' => $activity, 'path' => $file['name']]) }}">
                     @csrf
                     @method('DELETE')
                     <button class="block w-full px-3 py-2 text-left text-red-600 hover:bg-red-50" type="submit">
@@ -95,25 +95,25 @@
             </div>
           </div>
           <a class="mt-3 block aspect-square w-full overflow-hidden rounded-b-xl bg-gray-100"
-            href="{{ $file['url'] }}" target="_blank">
+             href="{{ $file['url'] }}" target="_blank">
             <img class="h-full w-full object-cover" src="{{ $thumb }}" alt="{{ $file['name'] }}"
-              onerror="this.src='https://via.placeholder.com/300?text=No+Preview'" />
+                 onerror="this.src='https://via.placeholder.com/300?text=No+Preview'" />
           </a>
         </div>
       @endforeach
     </div>
   @endif
   <button
-    class="fixed bottom-20 right-5 flex items-center gap-2 rounded-full bg-red-500 px-5 py-3 text-2xl/none text-white"
-    @click="$dispatch('add-folder')">
+      class="fixed bottom-20 right-5 flex items-center gap-2 rounded-full bg-red-500 px-5 py-3 text-2xl/none text-white"
+      @click="$dispatch('add-folder')">
     <span class="icon-[tabler--folder] size-4.5"></span>
     <span class="text-base">Folder Baru</span>
   </button>
   <button
-    class="fixed bottom-5 right-5 flex items-center gap-2 rounded-full bg-red-500 px-5 py-3 text-2xl/none text-white"
-    @click="$dispatch('add-documentations')">
+      class="fixed bottom-5 right-5 flex items-center gap-2 rounded-full bg-red-500 px-5 py-3 text-2xl/none text-white"
+      @click="$dispatch('add-documentations')">
     <span class="icon-[tabler--plus] size-4.5"></span>
-    <span class="text-base">Tambah File</span>
+    <span class="text-base">Tambah Dokumentasi</span>
   </button>
   <livewire:modal.drive.add-documentations :$activity />
   <livewire:modal.drive.add-folder :$activity />

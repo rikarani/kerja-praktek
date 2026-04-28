@@ -30,7 +30,7 @@ class Helper
 
     public static function getExplorer(Activity $activity, ?string $path = null): array
     {
-        $basePath = "{$activity->year}/{$activity->title}";
+        $basePath = "$activity->year/$activity->title";
         $currentPath = $path ? trim($path, '/') : null;
         $targetPath = $currentPath ? "$basePath/$currentPath" : $basePath;
 
@@ -42,15 +42,20 @@ class Helper
         $files = collect(self::storage()->files($targetPath))
             ->map(function ($file) {
                 $extension = Str::lower(pathinfo($file, PATHINFO_EXTENSION));
+                $type = match (true) {
+                    in_array($extension, ['jpg', 'jpeg', 'png']) => 'photo',
+                    $extension === 'pdf' => 'pdf',
+                    default => 'video',
+                };
+                $url = match ($type) {
+                    'photo' => static::getPhotoURL($file),
+                    'video', 'pdf' => static::getVideoURL($file),
+                };
 
                 return [
                     'name' => basename($file),
-                    'type' => in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])
-                        ? 'photo'
-                        : 'video',
-                    'url' => in_array($extension, ['jpg', 'jpeg', 'png', 'gif'])
-                        ? static::getPhotoURL($file)
-                        : static::getVideoURL($file),
+                    'type' => $type,
+                    'url' => $url,
                 ];
             })
             ->values()
@@ -104,9 +109,9 @@ class Helper
         $cacheKey = self::getDocumentationCacheKey($activity);
 
         return Cache::remember($cacheKey, Carbon::now()->addMinute(), function () use ($activity) {
-            $paths = Collection::make(self::storage()->allFiles("{$activity->year}/{$activity->title}"));
+            $paths = Collection::make(self::storage()->allFiles("$activity->year/$activity->title/dokumentasi"));
 
-            return $paths->partition(fn ($path) => Collection::make(['jpg', 'jpeg', 'png', 'gif'])
+            return $paths->partition(fn ($path) => Collection::make(['jpg', 'jpeg', 'png'])
                 ->contains(Str::lower(Str::afterLast($path, '.')))
             );
         });
@@ -133,11 +138,11 @@ class Helper
     /**
      * Generate URL video (Google Drive preview link).
      */
-    private static function getVideoURL(string $path): string
+    public static function getVideoURL(string $path): string
     {
         $url = self::storage()->url($path);
 
-        return preg_replace('/^.*id=([^&]+).*$/', 'https://drive.google.com/file/d/$1/preview', $url);
+        return preg_replace('/^.*id=([^&]+).*$/', 'https://drive.google.com/file/d/$1/view', $url);
     }
 
     /**
