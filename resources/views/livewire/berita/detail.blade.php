@@ -1,4 +1,4 @@
-@use(App\Support\Helper)
+@use('App\Support\Helper')
 
 <div class="mx-auto max-w-7xl px-4 py-8 lg:px-8 lg:py-16">
   <article class="mx-auto w-full">
