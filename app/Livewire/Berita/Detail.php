@@ -21,7 +21,7 @@ class Detail extends Component
         [$photos, $videos] = Helper::getDocumentationLinks($this->activity);
 
         return view('livewire.berita.detail')->with([
-            'title' => "Kegiatan $this->activity->title",
+            'title' => "Kegiatan {$this->activity->title}",
             'activity' => $this->activity,
             'photos' => $photos,
             'videos' => $videos,
