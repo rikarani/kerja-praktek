@@ -71,15 +71,15 @@ class AddDocumentations extends Component
     {
         if (filled($this->path)) {
             if (filled($this->folder)) {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path/$this->folder", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path/$this->folder", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
             } else {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
             }
         } else {
             if (filled($this->folder)) {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->folder", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->folder", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
             } else {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", "{$this->activity->title} - {$documentation->getClientOriginalName()}", 'google');
             }
         }
     }
