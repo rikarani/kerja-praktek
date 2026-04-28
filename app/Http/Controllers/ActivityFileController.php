@@ -27,13 +27,14 @@ class ActivityFileController extends Controller
     public function delete(Activity $activity, string $path): RedirectResponse
     {
         parse_str(parse_url(URL::previous(), PHP_URL_QUERY), $query);
+        $filePath = "{$activity->year}/{$activity->title}/$path";
 
         if (! empty($query['path'])) {
             $folder = $query['path'];
-            Storage::disk('google')->delete("{$activity->year}/{$activity->title}/$folder/$path");
+            $filePath = "{$activity->year}/{$activity->title}/$folder/$path";
         }
 
-        Storage::disk('google')->delete("{$activity->year}/{$activity->title}/$path");
+        Storage::disk('google')->delete($filePath);
         Helper::invalidateDocumentationCache($activity);
 
         return back();
