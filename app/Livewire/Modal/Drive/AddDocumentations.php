@@ -23,7 +23,7 @@ class AddDocumentations extends Component
 
     public array $documentations = [];
 
-    #[Url(except: '')]
+    #[Url]
     public ?string $path = null;
 
     public function mount(Activity $activity): void
@@ -63,7 +63,7 @@ class AddDocumentations extends Component
         return [
             'folder' => ['nullable', 'string'],
             'documentations' => ['required', 'array'],
-            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4', 'pdf']),
+            'documentations.*' => File::types(['jpg', 'jpeg', 'png', 'mp4']),
         ];
     }
 
@@ -71,13 +71,13 @@ class AddDocumentations extends Component
     {
         if (filled($this->path)) {
             if (filled($this->folder)) {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path/{$this->folder}", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path/$this->folder", $documentation->getClientOriginalName(), 'google');
             } else {
                 $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->path", $documentation->getClientOriginalName(), 'google');
             }
         } else {
             if (filled($this->folder)) {
-                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/{$this->folder}", $documentation->getClientOriginalName(), 'google');
+                $documentation->storeAs("{$this->activity->year}/{$this->activity->title}/$this->folder", $documentation->getClientOriginalName(), 'google');
             } else {
                 $documentation->storeAs("{$this->activity->year}/{$this->activity->title}", $documentation->getClientOriginalName(), 'google');
             }
