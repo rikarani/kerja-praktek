@@ -113,7 +113,7 @@
       class="fixed bottom-5 right-5 flex items-center gap-2 rounded-full bg-red-500 px-5 py-3 text-2xl/none text-white"
       @click="$dispatch('add-documentations')">
     <span class="icon-[tabler--plus] size-4.5"></span>
-    <span class="text-base">Tambah File</span>
+    <span class="text-base">Tambah Dokumentasi</span>
   </button>
   <livewire:modal.drive.add-documentations :$activity />
   <livewire:modal.drive.add-folder :$activity />
